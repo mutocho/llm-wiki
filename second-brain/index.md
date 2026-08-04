@@ -17,6 +17,7 @@ title: Wiki Index
 - [[dba/postgresql-operations|PostgreSQL 운영 지식]] — 계정/권한 패턴, 파라미터 베이스라인, XID 알람 기준
 - [[dba/sqlserver-operations|SQL Server 운영 지식]] — VLF, Parameter Sniffing, AG vs FCI, 버전 비교
 - [[dba/db-common-concepts|DBMS 공통 개념·3사 비교]] — 격리수준/MVCC/문법 비교표, SQL 안티패턴
+- [[dba/operational-queries|운영 진단 쿼리 모음]] — 3사 대조 SQL: 세션·블로킹·슬로우Top N·크기·인덱스·복제·wraparound (읽기 전용, 실행 검증 전)
 - [[dba/monitoring-incident-runbook|모니터링·장애 대응 런북]] — 시간박스형 대응, 점검 주기, 알람 세트
 - [[dba/dba-ops-standards|DBA 운영 표준]] — 장애 대응 5단계, 문서 생명주기
 - [[dba/db-access-control|3-엔진 계정·권한 관리 표준]] — Role 분리, break-glass, 금지 권한
