@@ -18,3 +18,4 @@ title: Wiki Log
 - [2026-08-04] LINT_FIX page="career/2026.md" added=summary,sources,category,lifecycle,base_confidence,tier,created,updated
 - [2026-08-04] CAPTURE type=source page="references/obsidian-wiki-tooling-gotchas.md" title="Wikilink 경로 접두어 함정 (기존 페이지 병합)"
 - [2026-08-04] EXPORT target="Notion 🗃️ DBA (3aefb969b8be801280b8dc2ff35fbefb)" pages=14 source="dba/*.md" direction=vault→notion
+- [2026-08-04] CAPTURE type=source page="dba/aurora-dsql.md" title="AWS Aurora DSQL — 분산 서버리스 PostgreSQL 호환 DB"
