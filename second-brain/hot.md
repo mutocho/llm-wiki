@@ -12,6 +12,7 @@ updated: 2026-08-04
 - [2026-08-04] CAPTURE — Aurora DSQL 세미나 노트를 [[dba/aurora-dsql]] 신규 페이지로 적재 (낙관적 락, buffer pool 없음, 앱 리트라이 필수). dba/ 13페이지를 Notion 🗃️ DBA 하위로 내보냄.
 - [2026-08-04] LINT+CAPTURE — 깨진 wikilink 2건(경로 접두어 누락) 수정, career/2026 frontmatter 보강. wikilink 접두어 함정을 [[references/obsidian-wiki-tooling-gotchas]]에 병합.
 - [2026-08-04] CAPTURE — forum DB 롤별 search_path 설정을 [[dba/postgresql-operations]]·[[career/2026]]에 이중 적재. career 범위를 "회사 수행 작업 전체 기록"으로 확장 (ROUTING.md).
+- [2026-08-04] UPDATE — [[dba/aurora-dsql]]을 AWS 공식 문서로 대조 보강(draft→verified). 세미나 노트의 "스토리지 무제한"을 정정하고 공식 한도표·미지원 기능·DPU 과금 추가.
 - [2026-08-04] CAPTURE — obsidian-wiki graph-query의 폴디드 summary 파싱 함정을 [[references/obsidian-wiki-tooling-gotchas]]로 승격. psql `\dT` 메타커맨드는 [[dba/postgresql-operations]]에 섹션 추가.
 - [2026-08-04] INGEST — `_raw/` 15건을 정식 페이지로 승격 (dba 13, career 1, references 1). Notion 'Muto - DBA 통합 포털' 전체 뎁스(~140페이지) 수집분 포함.
 - [2026-08-04] Notion 포털 심층 감사 — 교정 백로그 20건(P1: TRUNCATE 생성기, QA 호스트명 노출, 개인 이메일 잔존 등) 도출.
