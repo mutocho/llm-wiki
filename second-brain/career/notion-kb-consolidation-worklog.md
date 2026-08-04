@@ -43,7 +43,7 @@ updated: 2026-08-04
 
 ## 후속 (2026-08-04)
 
-로컬 Obsidian 세컨드 브레인(second-brain/)을 구축하고 Notion 포털의 지식을 정제·이관 시작. Notion과 로컬 볼트의 역할 분담 정의가 남은 과제. → [[notion-llm-wiki-governance]]
+로컬 Obsidian 세컨드 브레인(second-brain/)을 구축하고 Notion 포털의 지식을 정제·이관 시작. Notion과 로컬 볼트의 역할 분담 정의가 남은 과제. → [[dba/notion-llm-wiki-governance]]
 
 ## Related
 
