@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/kakaogames/workspace/muto/second-brain/sync.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
