@@ -12,6 +12,7 @@ title: Wiki Log
 - [2026-08-04] CAPTURE type=concept page="dba/postgresql-operations.md" title="psql 메타커맨드 — 타입 목록 \dT 계열"
 - [2026-08-04] CAPTURE type=source page="references/obsidian-wiki-tooling-gotchas.md" title="obsidian-wiki 도구 동작 함정"
 - [2026-08-04] QUERY query="aurora-dsql 관련 정리된 내용 알려줘" result_pages=1 mode=normal escalated=false
+- [2026-08-04] UPDATE page="dba/aurora-dsql.md" source="AWS 공식 문서 대조" lifecycle=draft→verified confidence=0.6→0.85 note="스토리지 무제한 주장 정정, 공식 한도표·미지원 기능·DPU 과금 추가"
 - [2026-08-04] CAPTURE type=concept page="dba/postgresql-operations.md" title="롤별 search_path 설정 (단일 스키마 DB)"
 - [2026-08-04] CAPTURE type=decision page="ROUTING.md" title="career 범위 확장 — 회사 수행 작업 전체 기록"
 - [2026-08-04] QUERY query="forum db에 권한 부여한 내용 알려줘" result_pages=2 mode=normal escalated=false
