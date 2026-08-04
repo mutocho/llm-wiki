@@ -92,6 +92,17 @@ chmod +x ~/.obsidian-wiki/hooks/wiki-stop-capture.sh
 # 추가 후 JSON 유효성 검증:
 python3 -c "import json,os; json.load(open(os.path.expanduser('~/.claude/settings.json'))); print('OK')"
 
+# 5-1. (선택) Stop 훅에 볼트 git 동기화 패치 추가
+#    다운로드한 wiki-stop-capture.sh 의 `INPUT=$(cat)` 바로 아래에 삽입:
+#
+#    VAULT_SYNC="<클론 경로>/second-brain/sync.sh"
+#    [[ -x "$VAULT_SYNC" ]] && bash "$VAULT_SYNC" </dev/null >/dev/null 2>&1 || true
+#
+#    반드시 stop_hook_active 조기 종료 검사보다 앞에 두어야 한다 —
+#    캡처는 훅 알림 다음 턴에 실행되므로, 캡처 턴이 끝난 뒤의 Stop에서도
+#    방금 쓴 _raw/ 파일이 커밋되게 하기 위함. 이 패치로 muto 프로젝트 밖에서
+#    작업하다 볼트에 캡처한 경우에도 세션 종료 시 자동 commit+push 된다.
+
 # 6. (선택) Obsidian에서 File → Open Vault → second-brain 선택
 ```
 
@@ -130,6 +141,7 @@ Claude Code Stop 이벤트마다 실행되어, 의미 있는 작업이 있던 �
 
 | 함수/블록 | 용도 |
 |---|---|
+| 볼트 sync 패치 (`VAULT_SYNC` 블록, 로컬 추가) | 세션 종료 시 볼트 미커밋 변경분 commit+push. `stop_hook_active` 검사보다 앞이라 캡처 턴 종료 후에도 동작. 실패 무시(best-effort) |
 | `stop_hook_active` 검사 | 훅이 유발한 캡처 턴에서 재실행 방지 (무한 루프 차단) |
 | 센티널 `mkdir` (`/tmp/wiki-stop-capture-<session_id>.done`) | 세션당 1회만 발동. mkdir의 원자성으로 훅 중복 등록 시에도 알림 1개 보장 |
 | `split_segments(cmd)` | 셸 명령을 `\|`, `&&`, `;` 기준으로 분할 — 따옴표 내부는 분할하지 않음. (원문, 비인용부, 확장가능부) 3요소 반환 |
