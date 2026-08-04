@@ -35,6 +35,7 @@ title: Wiki Index
 ## References
 
 - [[references/claude-code-permission-guardrails|Claude Code 권한 가드레일 동작]] — 이 머신의 훅/분류기 차단 우회 경로
+- [[references/obsidian-wiki-tooling-gotchas|obsidian-wiki 도구 동작 함정]] — graph-query의 폴디드 summary 파싱 실패, index_only 오탐
 
 ## Concepts
 
