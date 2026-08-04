@@ -29,6 +29,7 @@ updated: 2026-08-04
 - `idle_in_transaction_session_timeout` 미설정이 PG bloat 장애 1순위 원인 — [[dba/postgresql-operations]]
 - AWS PI 콘솔 2026-07-31 종료 → Database Insights 전환 — [[dba/monitoring-incident-runbook]]
 - graph-query의 `index_only: true`는 신뢰 금지 — 폴디드 summary를 못 읽어 오탐 — [[references/obsidian-wiki-tooling-gotchas]]
+- Aurora DSQL 스토리지는 무제한이 아님 — 클러스터당 10 TiB 기본(증액 시 256 TiB) — [[dba/aurora-dsql]]
 
 ## Flagged Contradictions
 
