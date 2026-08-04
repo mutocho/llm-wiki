@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "llm-wiki": {
+      "source": "ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/llm-wiki/SKILL.md",
+      "computedHash": "4d6d1bd641d39e1a5fc1b3c88246448cc94d4a72a0cd63bae31a47c9caa4b2de"
+    }
+  }
+}
