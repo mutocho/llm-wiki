@@ -1,1 +1,141 @@
-{}
+{
+  "/Users/kakaogames/workspace/muto/second-brain/_raw/2026-08-04-claude-code-permission-guardrails.md": {
+    "content_hash": "sha256:72ee0dd850a0ac09662613dd0eb0667fa93e46cccd6f45560e4242640e623463",
+    "last_ingested": "2026-08-04",
+    "pages_produced": [
+      "references/claude-code-permission-guardrails.md"
+    ],
+    "source_type": "document",
+    "project": null
+  },
+  "/Users/kakaogames/workspace/muto/second-brain/_raw/2026-08-04-cloud-platform-knowledge.md": {
+    "content_hash": "sha256:2571c9a7ab0f712c7d267486efb45f81465631ae7fe8e195ad82ad522a161753",
+    "last_ingested": "2026-08-04",
+    "pages_produced": [
+      "dba/cloud-platform-knowledge.md"
+    ],
+    "source_type": "document",
+    "project": null
+  },
+  "/Users/kakaogames/workspace/muto/second-brain/_raw/2026-08-04-db-access-control.md": {
+    "content_hash": "sha256:304c386733ae5985901b24446d332a68a82c937ed7a19558ed08daf6d535103a",
+    "last_ingested": "2026-08-04",
+    "pages_produced": [
+      "dba/db-access-control.md"
+    ],
+    "source_type": "document",
+    "project": null
+  },
+  "/Users/kakaogames/workspace/muto/second-brain/_raw/2026-08-04-db-common-concepts.md": {
+    "content_hash": "sha256:4f6933a897826c357c98fa3db47ce967d55d5cd1061ca4f343d15948894461ae",
+    "last_ingested": "2026-08-04",
+    "pages_produced": [
+      "dba/db-common-concepts.md"
+    ],
+    "source_type": "document",
+    "project": null
+  },
+  "/Users/kakaogames/workspace/muto/second-brain/_raw/2026-08-04-db-security-review-patterns.md": {
+    "content_hash": "sha256:bf49b872e71af26337cfaefc462f3a48e021f265291c3ab44d2ac2d0aa803e46",
+    "last_ingested": "2026-08-04",
+    "pages_produced": [
+      "dba/db-security-review-patterns.md"
+    ],
+    "source_type": "document",
+    "project": null
+  },
+  "/Users/kakaogames/workspace/muto/second-brain/_raw/2026-08-04-dba-ops-standards.md": {
+    "content_hash": "sha256:81ff29b76f1ff98eb55bc76ae498ae38aa8f2fbc739c00f538afca47fc242f78",
+    "last_ingested": "2026-08-04",
+    "pages_produced": [
+      "dba/dba-ops-standards.md"
+    ],
+    "source_type": "document",
+    "project": null
+  },
+  "/Users/kakaogames/workspace/muto/second-brain/_raw/2026-08-04-dev-automation-detail.md": {
+    "content_hash": "sha256:8255a88c275820ce27d5c5539a816f743de92bd2c28a60939474fd693ffa837e",
+    "last_ingested": "2026-08-04",
+    "pages_produced": [
+      "dba/dev-automation-detail.md"
+    ],
+    "source_type": "document",
+    "project": null
+  },
+  "/Users/kakaogames/workspace/muto/second-brain/_raw/2026-08-04-dev-tooling-standards.md": {
+    "content_hash": "sha256:98b7b5586a7d685bb3f6e12e655590b4e4d214b5aedcad09da916b56383b2fbe",
+    "last_ingested": "2026-08-04",
+    "pages_produced": [
+      "dba/dev-tooling-standards.md"
+    ],
+    "source_type": "document",
+    "project": null
+  },
+  "/Users/kakaogames/workspace/muto/second-brain/_raw/2026-08-04-monitoring-incident-runbook.md": {
+    "content_hash": "sha256:7740f1b04d0dc5b466a6f583cbd55ab3e7d587b19e9aa811fe24d5321352098e",
+    "last_ingested": "2026-08-04",
+    "pages_produced": [
+      "dba/monitoring-incident-runbook.md"
+    ],
+    "source_type": "document",
+    "project": null
+  },
+  "/Users/kakaogames/workspace/muto/second-brain/_raw/2026-08-04-mysql-operations.md": {
+    "content_hash": "sha256:e7c1fdb336fb963afb3bfda184bd96d39d5adfd02a76fc5ead27d88162820534",
+    "last_ingested": "2026-08-04",
+    "pages_produced": [
+      "dba/mysql-operations.md"
+    ],
+    "source_type": "document",
+    "project": null
+  },
+  "/Users/kakaogames/workspace/muto/second-brain/_raw/2026-08-04-notion-kb-consolidation-worklog.md": {
+    "content_hash": "sha256:ec70881aadf1613d81537d483f10292baa4153c6d1cb346ca82d4dea08912dda",
+    "last_ingested": "2026-08-04",
+    "pages_produced": [
+      "career/notion-kb-consolidation-worklog.md"
+    ],
+    "source_type": "document",
+    "project": null
+  },
+  "/Users/kakaogames/workspace/muto/second-brain/_raw/2026-08-04-notion-llm-wiki-governance.md": {
+    "content_hash": "sha256:dcc5c975fac45fbad252bb790eab0f9fde46da70d63fc11fc29fb87e4af28bc7",
+    "last_ingested": "2026-08-04",
+    "pages_produced": [
+      "dba/notion-llm-wiki-governance.md"
+    ],
+    "source_type": "document",
+    "project": null
+  },
+  "/Users/kakaogames/workspace/muto/second-brain/_raw/2026-08-04-notion-remediation-backlog.md": {
+    "content_hash": "sha256:13b61eebaed4a130eabd462164dc754d3389b00972b703df68fa3bb41916c9a4",
+    "last_ingested": "2026-08-04",
+    "pages_produced": [
+      "dba/notion-remediation-backlog.md"
+    ],
+    "source_type": "document",
+    "project": null
+  },
+  "/Users/kakaogames/workspace/muto/second-brain/_raw/2026-08-04-postgresql-operations.md": {
+    "content_hash": "sha256:01c3e1c63943f09d8ba1befda77e4ab41b5942a5f9096f9ac2ad97ef9de720ea",
+    "last_ingested": "2026-08-04",
+    "pages_produced": [
+      "dba/postgresql-operations.md"
+    ],
+    "source_type": "document",
+    "project": null
+  },
+  "/Users/kakaogames/workspace/muto/second-brain/_raw/2026-08-04-sqlserver-operations.md": {
+    "content_hash": "sha256:19d96885dfa5583966bb4bf53827eb85270a3419ccbcb49b90790a38539a0158",
+    "last_ingested": "2026-08-04",
+    "pages_produced": [
+      "dba/sqlserver-operations.md"
+    ],
+    "source_type": "document",
+    "project": null
+  },
+  "stats": {
+    "total_sources_ingested": 15,
+    "total_pages": 15
+  }
+}
