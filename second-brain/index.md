@@ -21,7 +21,7 @@ title: Wiki Index
 - [[dba/dba-ops-standards|DBA 운영 표준]] — 장애 대응 5단계, 문서 생명주기
 - [[dba/db-access-control|3-엔진 계정·권한 관리 표준]] — Role 분리, break-glass, 금지 권한
 - [[dba/db-security-review-patterns|DB 문서 보안 검토 위험 패턴]] — 감사 체크리스트
-- [[dba/aurora-dsql|AWS Aurora DSQL]] — 분산 멀티 리전 multi-master, 낙관적 락, FK/Trigger/VACUUM 없음
+- [[dba/aurora-dsql|AWS Aurora DSQL]] — 멀티 리전 multi-master, OCC(40001) 리트라이, 미지원 기능·공식 한도표, DPU 과금
 - [[dba/cloud-platform-knowledge|클라우드·플랫폼 지식]] — Aurora 내부, Azure 백업, Docker 표준
 - [[dba/dev-tooling-standards|개발 도구 운영 기준]] — Ruff·CLAUDE.md·CI 요약
 - [[dba/dev-automation-detail|개발·자동화 상세]] — Ruff 설정 상세, Slack Bot scope
