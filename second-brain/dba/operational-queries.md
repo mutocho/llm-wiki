@@ -1095,5 +1095,7 @@ COMMIT TRAN;
 - [[dba/postgresql-operations|PostgreSQL 운영 지식]]
 - [[dba/sqlserver-operations|SQL Server 운영 지식]]
 - [[dba/db-common-concepts|DBMS 공통 개념·3사 비교]]
+- [[dba/db-access-control|3-엔진 계정·권한 관리 표준]]
+- [[dba/db-security-review-patterns|DB 문서 보안 검토 위험 패턴]]
 - [[dba/notion-remediation-backlog|Notion 지식베이스 교정 백로그]]
 - [[dba/_hub|DBA 지식베이스]]
