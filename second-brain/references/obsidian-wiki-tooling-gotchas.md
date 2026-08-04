@@ -29,6 +29,12 @@ updated: 2026-08-04
 - 근본 해결은 두 갈래 — (1) 페이지 frontmatter를 한 줄 `summary: "..."`로 통일, (2) graph-query 파서 수정. 볼트 쪽 통일이 싸지만 요약 200자 제한과 줄바꿈 가독성이 걸린다.^[ambiguous] 이 볼트 페이지 대부분이 Notion 심층 수집분이라 동일 패턴을 공유하므로 영향 범위는 전체다.
 - 확인 근거: 후보로 뜬 4개 페이지 전부 `">-"` 반환, 실제 파일에는 정상적인 2줄 폴디드 summary 존재.
 
+## Wikilink 경로 접두어 함정
+
+- 경로 접두어 없는 wikilink(예: `[[dev-tooling-standards]]`)는 Obsidian 앱에서는 최단 고유 이름으로 정상 해석되지만, 링크 대상을 볼트 루트 상대 경로 리터럴로 검사하는 도구(wiki-lint의 파일 존재 검사 등)는 깨진 링크로 판정한다.
+- 이 볼트의 관례는 항상 폴더 접두어 포함(`[[dba/dev-tooling-standards]]`)이다 — 도구 호환성이 좋고, lint 오탐도 사라진다. 2026-08-04 린트에서 접두어 누락 2건을 발견해 수정했다.
+- 반대 방향 오탐도 있다: 산문 속 예시용 링크(`[[wikilink]]`, `[[링크]]` — ROUTING.md의 규칙 설명)는 실제 페이지가 아니므로 lint 결과에서 수동 제외해야 한다.^[inferred]
+
 ## Related
 
 - [[references/claude-code-permission-guardrails|Claude Code 권한 가드레일 동작]]
