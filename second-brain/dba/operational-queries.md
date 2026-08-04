@@ -1,10 +1,10 @@
 ---
-title: 운영 진단 쿼리 모음 (MySQL·PostgreSQL·SQL Server)
+title: 운영 쿼리 모음 — 진단·권한·DDL/DML (MySQL·PostgreSQL·SQL Server)
 tags: [dba, snippet, monitoring, troubleshooting]
 topics: [dba]
 summary: >-
-  3사 엔진 공통 진단 쿼리 — 활성 세션, 블로킹, 슬로우 Top N, 크기, 미사용 인덱스,
-  복제 지연, 트랜잭션 나이. 전부 읽기 전용. 실행 검증 전이므로 버전 확인 필수.
+  3사 엔진 쿼리 모음 — 진단(1~11)·권한 감사(12)는 읽기 전용, 권한 부여(13)·DDL(14)·DML(15)은
+  안전 절차 포함 변경 명령. 실행 검증 전이므로 버전·조합 확인 필수.
 project: second-brain
 base_confidence: 0.7
 provenance:
