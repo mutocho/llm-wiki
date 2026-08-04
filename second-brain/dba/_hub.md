@@ -16,4 +16,7 @@ DBA 업무에 필요한 정보, 경험, 노하우, 작업용 문서를 모으는
 
 ## 최근 페이지
 
-*아직 없음. `/wiki-capture` 또는 `/wiki-ingest`로 적재.*
+- [[dba/mysql-operations]] · [[dba/postgresql-operations]] · [[dba/sqlserver-operations]] · [[dba/db-common-concepts]]
+- [[dba/monitoring-incident-runbook]] · [[dba/dba-ops-standards]] · [[dba/db-access-control]] · [[dba/db-security-review-patterns]]
+- [[dba/cloud-platform-knowledge]] · [[dba/dev-tooling-standards]] · [[dba/dev-automation-detail]]
+- [[dba/notion-llm-wiki-governance]] · [[dba/notion-remediation-backlog]]

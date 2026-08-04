@@ -19,4 +19,4 @@ topics: [career]
 
 ## 최근 페이지
 
-*아직 없음.*
+- [[career/notion-kb-consolidation-worklog|DBA 지식베이스 통합 정리 프로젝트 (2026-07)]]
