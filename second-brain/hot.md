@@ -32,6 +32,7 @@ updated: 2026-08-04
 - AWS PI 콘솔 2026-07-31 종료 → Database Insights 전환 — [[dba/monitoring-incident-runbook]]
 - graph-query의 `index_only: true`는 신뢰 금지 — 폴디드 summary를 못 읽어 오탐 — [[references/obsidian-wiki-tooling-gotchas]]
 - Aurora DSQL 스토리지는 무제한이 아님 — 클러스터당 10 TiB 기본(증액 시 256 TiB) — [[dba/aurora-dsql]]
+- 대량 DML 전 `sql_safe_updates=1`(MySQL) / `lock_timeout`(PG) / `SET LOCK_TIMEOUT`(MSSQL) 가드 — [[dba/operational-queries]]
 
 ## Flagged Contradictions
 
