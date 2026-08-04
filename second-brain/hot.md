@@ -23,6 +23,7 @@ updated: 2026-08-04
 
 - Notion 원본 P1 교정 6건 대기 — [[dba/notion-remediation-backlog]]
 - Notion 포털 vs 로컬 볼트 역할 분담 미결정 — [[dba/notion-llm-wiki-governance]]
+- [[dba/operational-queries]] 실행 검증 대기 — 개발/QA 인스턴스에서 확인 후 현장 쿼리로 교체
 
 ## Key Takeaways
 
