@@ -17,7 +17,6 @@ lifecycle: draft
 tier: supporting
 created: 2026-08-04
 updated: 2026-08-04
-provenance_note: "2026-08-04 wikilink 접두어 함정 추가 — extracted 0.8 / inferred 0.2 유지"
 ---
 
 # obsidian-wiki 도구 동작 함정
