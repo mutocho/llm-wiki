@@ -2,8 +2,8 @@
 title: obsidian-wiki 도구 동작 함정
 tags: [tooling, knowledge-management, gotcha]
 summary: >-
-  graph-query는 frontmatter의 폴디드 스칼라 summary를 리터럴 '>-'로 읽어,
-  요약이 사실상 비어 있는데도 index_only:true를 반환한다. 그대로 따르면 빈 답이 나온다.
+  graph-query가 폴디드 summary를 리터럴 '>-'로 읽는 함정과, 경로 접두어 없는
+  wikilink가 Obsidian에선 정상이나 경로 리터럴 도구(lint)에선 깨지는 함정.
 project: second-brain
 base_confidence: 0.75
 provenance:
