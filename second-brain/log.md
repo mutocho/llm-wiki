@@ -15,3 +15,4 @@ title: Wiki Log
 - [2026-08-04] CAPTURE type=decision page="ROUTING.md" title="career 범위 확장 — 회사 수행 작업 전체 기록"
 - [2026-08-04] QUERY query="forum db에 권한 부여한 내용 알려줘" result_pages=2 mode=normal escalated=false
 - [2026-08-04] LINT issues_found=4 orphans=0 broken_links=2 stale=0 contradictions=0 prov_issues=0 missing_summary=2 fragmented_clusters=0 visibility_issues=0 promotion_candidates=0 synthesis_gaps=0 relationship_issues=0 links_fixed=2
+- [2026-08-04] LINT_FIX page="career/2026.md" added=summary,sources,category,lifecycle,base_confidence,tier,created,updated
