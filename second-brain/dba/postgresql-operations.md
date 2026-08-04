@@ -32,6 +32,7 @@ updated: 2026-08-04
 - 슈퍼유저 대신 시스템 롤: `pg_monitor` / `pg_read_all_data`(14+) / `pg_maintain`(17+).
 - 인증: PG14+ 기본 scram-sha-256 (~13은 md5). 구형 JDBC는 42.2.x+ 업그레이드.
 - 계정 삭제 절차: GRANT 정리 → `REASSIGN OWNED` → `DROP OWNED` → `DROP USER`.
+- 단일 스키마 DB는 롤별 search_path를 지정해 스키마 명시 없이 쿼리 가능: `ALTER ROLE <롤> IN DATABASE <db> SET search_path = <스키마>, extensions;` (예: forum DB의 dbadmin/forum_user에 `forum, extensions` 적용).
 
 ## 파라미터 베이스라인
 
