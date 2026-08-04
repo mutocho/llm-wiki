@@ -14,6 +14,7 @@ title: Wiki Log
 - [2026-08-04] QUERY query="aurora-dsql 관련 정리된 내용 알려줘" result_pages=1 mode=normal escalated=false
 - [2026-08-04] UPDATE page="dba/aurora-dsql.md" source="AWS 공식 문서 대조" lifecycle=draft→verified confidence=0.6→0.85 note="스토리지 무제한 주장 정정, 공식 한도표·미지원 기능·DPU 과금 추가"
 - [2026-08-04] QUERY query="위키에 운영 쿼리에 대한 내용 있어?" result_pages=7 mode=normal escalated=true
+- [2026-08-04] CAPTURE type=concept page="dba/operational-queries.md" title="운영 진단 쿼리 모음 (MySQL·PostgreSQL·SQL Server)" note="볼트 첫 SQL 코드블록 페이지. 표준 시스템 뷰 기반, 실행 검증 전(draft)"
 - [2026-08-04] CAPTURE type=concept page="dba/postgresql-operations.md" title="롤별 search_path 설정 (단일 스키마 DB)"
 - [2026-08-04] CAPTURE type=decision page="ROUTING.md" title="career 범위 확장 — 회사 수행 작업 전체 기록"
 - [2026-08-04] QUERY query="forum db에 권한 부여한 내용 알려줘" result_pages=2 mode=normal escalated=false
