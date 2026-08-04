@@ -9,6 +9,7 @@ updated: 2026-08-04
 
 ## Recent Activity
 
+- [2026-08-04] CAPTURE — obsidian-wiki graph-query의 폴디드 summary 파싱 함정을 [[references/obsidian-wiki-tooling-gotchas]]로 승격. psql `\dT` 메타커맨드는 [[dba/postgresql-operations]]에 섹션 추가.
 - [2026-08-04] INGEST — `_raw/` 15건을 정식 페이지로 승격 (dba 13, career 1, references 1). Notion 'Muto - DBA 통합 포털' 전체 뎁스(~140페이지) 수집분 포함.
 - [2026-08-04] Notion 포털 심층 감사 — 교정 백로그 20건(P1: TRUNCATE 생성기, QA 호스트명 노출, 개인 이메일 잔존 등) 도출.
 - [2026-08-04] INIT — DBA/커리어 이중 허브 볼트 생성, git auto-sync 훅 구성.
