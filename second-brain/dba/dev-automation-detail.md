@@ -22,7 +22,7 @@ updated: 2026-08-04
 
 # 개발·자동화 상세
 
-관련: [[dev-tooling-standards]] (요약판)
+관련: [[dba/dev-tooling-standards]] (요약판)
 
 ## Ruff 상세 설정
 
