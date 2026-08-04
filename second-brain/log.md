@@ -10,3 +10,4 @@ title: Wiki Log
 - [2026-08-04] QUERY query="메모리 사용량 보는 쿼리" result_pages=2 mode=normal escalated=false
 - [2026-08-04] QUERY query="sql server sp_configure 관련 설정 설명해줘" result_pages=1 mode=normal escalated=false
 - [2026-08-04] CAPTURE type=concept page="dba/postgresql-operations.md" title="psql 메타커맨드 — 타입 목록 \dT 계열"
+- [2026-08-04] CAPTURE type=source page="references/obsidian-wiki-tooling-gotchas.md" title="obsidian-wiki 도구 동작 함정"
