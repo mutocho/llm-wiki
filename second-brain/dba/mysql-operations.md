@@ -56,6 +56,7 @@ MEMORY(고정길이, BLOB/TEXT 즉시 디스크 MyISAM) → TempTable(가변길�
 ## 버전 이정표 (5.7.44~8.4.9)
 
 - **회수(사용 금지) 릴리스: 8.0.29** (instant column 결함), **8.0.38/8.4.1** (8001+ 테이블 재시작 실패).
+- **8.0.42 회귀 — 파티션 pruning 캐시**: `DEFAULT CURRENT_TIMESTAMP` 파티션 키에 prepared INSERT 재사용 시 경계 통과 후 `ERROR 1748`. 8.0.41에는 없음, 8.0.45+/8.4/9.x에 수정 예정 → [[dba/mysql-partition-pruning-prepared-stmt-bug|Bug #119309 상세]].
 - 8.0.13 함수형 인덱스/Skip Scan · 8.0.16 CHECK 제약 실적용/TLS1.3 · 8.0.17 Clone Plugin · 8.0.18 Hash Join/EXPLAIN ANALYZE · 8.0.23 Invisible Column · 8.0.27 MFA/병렬 DDL · 8.0.28 TLS1.0/1.1 제거 · 8.0.30 GIPK/`innodb_redo_log_capacity` · 8.0.31 INTERSECT/EXCEPT · 8.0.32 (8.0.28→업그레이드 시 INSTANT 컬럼 손상 수정) · 8.0.41/8.4.4 공간 인덱스 재생성 권장 · 8.4.0 `mysql_native_password` 기본 비활성·구 복제 구문 제거. 8.0/8.4가 LTS.
 - `mysql_native_password`: 8.0.34 deprecated → 8.4 기본 비활성 → 9.0 제거.
 - NUMA는 `numactl --interleave`로 스왑 유발 방지. ONLINE DDL 가능 여부는 버전별 공식 표 확인.
