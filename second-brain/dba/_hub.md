@@ -21,3 +21,4 @@ DBA 업무에 필요한 정보, 경험, 노하우, 작업용 문서를 모으는
 - [[dba/cloud-platform-knowledge]] · [[dba/aurora-dsql]] · [[dba/dev-tooling-standards]] · [[dba/dev-automation-detail]]
 - [[dba/notion-llm-wiki-governance]] · [[dba/notion-remediation-backlog]]
 - [[dba/operational-queries]] — 쿼리·스크립트 모음 (`tags: [snippet]`)
+- [[dba/mysql-partition-pruning-prepared-stmt-bug]] — 트러블슈팅 (`tags: [troubleshooting]`)
