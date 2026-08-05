@@ -57,11 +57,35 @@ muto/
 
 ### 사전 조건
 
-- Claude Code 설치 + `obsidian-wiki` 스킬 세트(`~/.claude/skills/wiki-*`, `llm-wiki`)가 설치된 환경
+- AI 코딩 에이전트: Claude Code 또는 Codex CLI (둘 다 있어도 됨 — 같은 볼트를 공유)
 - git, python3 (macOS/Linux 기본 포함)
 - (선택) Obsidian 앱 — 그래프 뷰·편집용. 볼트는 순수 마크다운이라 없어도 동작
 
-### 단계
+### 3-1. obsidian-wiki 스킬 세트 설치
+
+위키 스킬(`/wiki-capture`, `/wiki-ingest`, `/wiki-query` 등)은 [obsidian-wiki](https://github.com/Ar9av/obsidian-wiki) 패키지가 제공합니다. 새 장비에서 먼저 설치합니다:
+
+```bash
+# 1. 패키지 설치
+pip install obsidian-wiki
+
+# 2. 스킬을 장비에 설치된 모든 AI 에이전트(Claude Code, Codex 등)에 설치 + 전역 config 생성
+obsidian-wiki setup
+# 프롬프트에서 볼트 경로를 물으면 <클론 경로>/second-brain 지정
+# (클론 전이면 아무 경로로 진행 후 ~/.obsidian-wiki/config 에서 수정)
+
+# 3. 설치 확인
+obsidian-wiki info      # 설치 경로·버전·config 확인
+obsidian-wiki doctor    # 상태 진단
+ls ~/.claude/skills | grep wiki   # wiki-* 스킬 존재 확인
+```
+
+설치 결과물 (패키지 파일로의 심볼릭 링크):
+- `~/.claude/skills/wiki-*`, `~/.claude/skills/llm-wiki` — Claude Code용 스킬
+- `~/.codex/skills/wiki-*`, `~/.codex/prompts/wiki-*` — Codex용 스킬/프롬프트 (Codex가 설치돼 있으면 자동)
+- `~/.obsidian-wiki/config` — 전역 설정 (`OBSIDIAN_VAULT_PATH` 등). 프로젝트별 `.env`가 있으면 그것이 우선
+
+### 3-2. 저장소 클론과 기본 셋팅
 
 ```bash
 # 1. 저장소 클론
@@ -106,9 +130,29 @@ python3 -c "import json,os; json.load(open(os.path.expanduser('~/.claude/setting
 # 6. (선택) Obsidian에서 File → Open Vault → second-brain 선택
 ```
 
-검증: Claude Code를 이 디렉터리에서 열고 `/wiki-status` 실행 → 볼트가 인식되면 완료.
+### 3-3. Codex 환경 구축 (선택)
 
-## 4. 일상 사용법 (스킬 명령)
+Codex CLI를 쓰는 장비라면 추가 설정은 거의 없습니다:
+
+- **스킬**: 3-1의 `obsidian-wiki setup`이 `~/.codex/skills/`와 `~/.codex/prompts/`에 함께 설치합니다. 이미 setup을 실행했다면 끝. Codex를 나중에 설치했다면 `obsidian-wiki setup`을 다시 실행하면 됩니다.
+- **적재 규칙**: 프로젝트 루트의 `AGENTS.md`를 Codex가 자동으로 읽습니다 (볼트 위치, ROUTING 규칙, 민감정보 금지 포함). 별도 설정 불필요.
+- **git 동기화**: Codex에는 Claude Code의 PostToolUse/Stop 훅이 없습니다. 대신 `AGENTS.md`가 "볼트 쓰기 후 `bash second-brain/sync.sh` 실행"을 지시하므로 지침 기반으로 동기화됩니다. 세션 종료 자동 캡처(위 5번 훅)도 없으므로, 남길 지식은 세션 중 `/wiki-capture`로 직접 캡처합니다.
+
+검증:
+- Claude Code: 이 디렉터리에서 열고 `/wiki-status` 실행 → 볼트가 인식되면 완료.
+- Codex: 이 디렉터리에서 `codex` 실행 후 `/wiki-status` → 동일하게 확인.
+
+## 4. 일상 사용법
+
+### 기본 흐름
+
+1. **작업한다** — Claude Code 또는 Codex로 평소처럼 작업. Claude Code는 의미 있는 편집이 있던 세션 종료 시 Stop 훅이 `/wiki-capture --quick`을 유도해 발견 사항이 `_raw/`에 자동 드롭됩니다 (Codex는 훅이 없어 수동 캡처만).
+2. **수동 캡처** — 대화 중 남기고 싶은 지식이 생기면 즉시 `/wiki-capture`(정식 페이지) 또는 `/wiki-capture --quick`(초안만).
+3. **주기적 승격** — `_raw/`가 쌓이면 `/wiki-ingest`로 dba/career 정식 페이지로 승격. career 페이지는 회사 단위로 자동 라우팅됩니다 (`ROUTING.md` — 현재 회사 카카오게임즈 → `career/kakaogames/`, 불분명하면 `career/common/`).
+4. **검색** — 과거 지식이 필요하면 `/wiki-query <질문>`.
+5. **동기화는 자동** — 볼트 쓰기마다 sync.sh가 commit+push. 수동 실행은 `bash second-brain/sync.sh`.
+
+### 스킬 명령 요약
 
 | 명령 | 용도 | 쓰기 범위 |
 |---|---|---|
