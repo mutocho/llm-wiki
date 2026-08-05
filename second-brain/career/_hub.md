@@ -15,8 +15,8 @@ topics: [career]
 
 ## 연간 뷰
 
-- [[career/2026|2026년 작업 내역]]
+- [[career/kakaogames/2026|2026년 작업 내역]]
 
 ## 최근 페이지
 
-- [[career/notion-kb-consolidation-worklog|DBA 지식베이스 통합 정리 프로젝트 (2026-07)]]
+- [[career/kakaogames/notion-kb-consolidation-worklog|DBA 지식베이스 통합 정리 프로젝트 (2026-07)]]
