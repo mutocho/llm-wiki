@@ -31,20 +31,29 @@ updated: 2026-08-04
 ERROR 1748 (HY000): Found a row not matching the given partition set
 ```
 
-- **영향 버전: 8.0.42** — 8.0.41에는 없던 **회귀**다.
+- **영향 버전: 8.0.42** — 8.0.41 및 그 이전에는 없던 **회귀**다. 리포터(Ivo Matsuo) 진술: *"I do not see the problem in 8.0.41 or older"*. Oracle(Roy Lyseng)이 `Verified as described`로 확인.
 - Bug #119309, 상태 `Verified`, 심각도 S3.
+
+> **사내 문서 정정** — 이 건을 "8.0.41 업스트림 버그"로 적은 자료가 있으나, **8.0.41은 정상이고 8.0.42에서 유입된 회귀**다. 버전 판단을 뒤집는 차이이므로(8.0.41 유지 = 안전, 8.0.42 업그레이드 = 노출) 인용 시 확인할 것.
 
 ## 발생 조건
 
 세 가지가 모두 겹칠 때만 발생한다:
 
 1. `RANGE` 파티션 + 파티션 표현식이 시각 기반 (`unix_timestamp(created_timestamp)` 등)
-2. 파티션 키 컬럼이 **`DEFAULT CURRENT_TIMESTAMP`** — INSERT 문이 값을 명시하지 않고 서버 기본값에 의존
-3. **prepared statement를 준비해 두고 재사용** — 준비 후 경계를 넘어서까지 살아 있는 커넥션
+2. 파티션 키 컬럼이 **`DEFAULT CURRENT_TIMESTAMP`** — INSERT 문이 그 컬럼을 명시하지 않고 서버 기본값에 의존
+3. **prepared statement 또는 stored procedure를 준비해 두고 재사용** — 리포트에 SP도 명시돼 있다(*"first execution of statement in procedure happens at time point"*). SP 본문의 문장도 내부적으로 준비·캐시되므로 같은 결함을 탄다.
 
-## 원인
+## 원인 — 리포트의 코드 레벨 분석
 
-prepare 또는 최초 실행 시점에 현재 시각 기준으로 유효 파티션 비트맵(`partition_info::lock_partitions`)을 계산해 두는데, **이후 실행에서 재계산하지 않는다.** 시간이 파티션 경계를 넘어가면 캐시된 비트맵이 과거 파티션을 가리킨 채로 남아 실제 들어갈 행과 어긋나고, 서버가 1748로 거부한다.
+파티션 프루닝이 **`Sql_cmd_insert_base::prepare_inner()`에서 테이블 락을 잡기 전에 미리 수행**되고, 그 시점의 시각을 기준으로 `partition_info::lock_partitions` 비트맵이 확정된다. **이 비트맵은 재실행 때 갱신되지 않는다.**
+
+- `partition_info::lock_partitions` — prepare 시점에 한 번 계산되고 그대로 재사용됨 (**결함 지점**)
+- `partition_info::read_partitions` — 실행마다 정상적으로 재계산됨
+
+시간이 경계를 넘어가면 행은 새 파티션으로 가야 하는데 `lock_partitions`는 과거 파티션 집합을 고정하고 있어, 실제 행과 잠긴 파티션 집합이 어긋나고 서버가 1748로 거부한다.
+
+> **"커넥션 연결 시점"이 아니라 "prepare / 최초 실행 시점"이 기준이다.** 커넥션을 열어만 두고 해당 statement를 아직 실행하지 않았다면 비트맵은 존재하지 않는다(아래 "핵심" 항목).
 
 ## 핵심 — 왜 어떤 테이블은 멀쩡해 보이는가
 
