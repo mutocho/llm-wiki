@@ -16,6 +16,7 @@ title: Wiki Index
 - [[dba/mysql-operations|MySQL/Aurora MySQL 운영 지식]] — 백업 표준, Undo·락, 회수 릴리스 포함 버전 이정표
 - [[dba/postgresql-operations|PostgreSQL 운영 지식]] — 계정/권한 패턴, 파라미터 베이스라인, XID 알람 기준
 - [[dba/sqlserver-operations|SQL Server 운영 지식]] — VLF, Parameter Sniffing, AG vs FCI, 버전 비교
+- [[dba/mysql-partition-pruning-prepared-stmt-bug|MySQL 8.0.42 파티션 pruning 회귀 (Bug #119309)]] — prepared INSERT 경계 통과 시 ERROR 1748, INSERT 이력 없으면 미노출
 - [[dba/db-common-concepts|DBMS 공통 개념·3사 비교]] — 격리수준/MVCC/문법 비교표, SQL 안티패턴
 - [[dba/operational-queries|운영 쿼리 모음 — 진단·권한·DDL/DML]] — 3사 대조 SQL 15개 카테고리. 1~12 읽기 전용, 13~15 변경 명령(안전 절차 포함). 실행 검증 전
 - [[dba/monitoring-incident-runbook|모니터링·장애 대응 런북]] — 시간박스형 대응, 점검 주기, 알람 세트
