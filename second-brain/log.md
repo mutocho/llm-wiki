@@ -20,6 +20,7 @@ title: Wiki Log
 - [2026-08-04] UPDATE page="career/2026.md" note="8월 항목 추가 — Bug #119309 영향 조사·재현 테스트"
 - [2026-08-04] QUERY query="aws aurora dsql 설명들은거 알려줘" result_pages=1 mode=normal escalated=false
 - [2026-08-04] UPDATE page="dba/mysql-partition-pruning-prepared-stmt-bug.md" note="리포트 재확인 — 최소 재현 케이스·내부 함수명·SP 포함 추가. 사내 문서의 8.0.41 표기 정정(실제 8.0.42), Reorganize는 재발 방지가 아닌 리셋임을 명시"
+- [2026-08-04] CAPTURE type=synthesis page="synthesis/verbal-source-verification-policy.md" title="구술·사내 출처는 공식 문서 대조 전까지 승격하지 않는다"
 - [2026-08-04] CAPTURE type=concept page="dba/postgresql-operations.md" title="롤별 search_path 설정 (단일 스키마 DB)"
 - [2026-08-04] CAPTURE type=decision page="ROUTING.md" title="career 범위 확장 — 회사 수행 작업 전체 기록"
 - [2026-08-04] QUERY query="forum db에 권한 부여한 내용 알려줘" result_pages=2 mode=normal escalated=false
