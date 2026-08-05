@@ -12,6 +12,7 @@ updated: 2026-08-04
 - [2026-08-04] CAPTURE — Aurora DSQL 세미나 노트를 [[dba/aurora-dsql]] 신규 페이지로 적재 (낙관적 락, buffer pool 없음, 앱 리트라이 필수). dba/ 13페이지를 Notion 🗃️ DBA 하위로 내보냄.
 - [2026-08-04] LINT+CAPTURE — 깨진 wikilink 2건(경로 접두어 누락) 수정, career/2026 frontmatter 보강. wikilink 접두어 함정을 [[references/obsidian-wiki-tooling-gotchas]]에 병합.
 - [2026-08-04] CAPTURE — forum DB 롤별 search_path 설정을 [[dba/postgresql-operations]]·[[career/2026]]에 이중 적재. career 범위를 "회사 수행 작업 전체 기록"으로 확장 (ROUTING.md).
+- [2026-08-04] CAPTURE — [[synthesis/verbal-source-verification-policy]] 신규. 세미나·사내 출처의 반복 오류 5건을 근거로 한 적재 규칙. synthesis 카테고리 첫 페이지.
 - [2026-08-04] CAPTURE — [[dba/mysql-partition-pruning-prepared-stmt-bug]] 신규 (dba/career 양쪽 적재). MySQL Bug #119309 공식 리포트 + 자체 재현 테스트 결과. 버그 리포트에 없는 "INSERT 이력 없으면 미노출" 조건 규명.
 - [2026-08-04] CAPTURE/UPDATE — [[dba/operational-queries]] 신규. 볼트의 첫 SQL 코드블록 페이지(3사 대조 15개 카테고리: 진단 1~11, 권한 감사 12, 권한 부여 13, DDL 14, DML 15). 표준 시스템 뷰 기반이라 **실행 검증 전(draft)** — 현장 쿼리로 교체 필요. `search_path` 설정 지식도 여기 흡수.
 - [2026-08-04] UPDATE — [[dba/aurora-dsql]]을 AWS 공식 문서로 대조 보강(draft→verified). 세미나 노트의 "스토리지 무제한"을 정정하고 공식 한도표·미지원 기능·DPU 과금 추가.
