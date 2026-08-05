@@ -65,6 +65,28 @@ ERROR 1748 (HY000): Found a row not matching the given partition set
 - 반대로, **평소 쓰지 않다가 장애 시점에 처음 쓰이는 테이블**(에러 로그류)은 첫 INSERT 시점에 캐시가 생기고, 그 커넥션이 오래 살아 있으면 다음 경계에서 터진다. 조사 대상에서 빼면 안 된다.
 - 영향 범위 판정은 "에러가 났는가"가 아니라 **"조건 3가지를 만족하는 테이블 + 장수 커넥션의 prepared statement 재사용 여부"**로 해야 한다.
 
+## 리포트의 최소 재현 케이스
+
+```sql
+CREATE TABLE `test_table` (
+  `id` int NOT NULL,
+  `created_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`, `created_timestamp`)
+) ENGINE=InnoDB
+PARTITION BY RANGE (unix_timestamp(`created_timestamp`))
+(PARTITION pMIN VALUES LESS THAN (1762341952) ENGINE = InnoDB,
+ PARTITION pMAX VALUES LESS THAN MAXVALUE ENGINE = InnoDB);
+
+PREPARE stmt FROM 'INSERT INTO test_table (id) VALUES (?)';
+SET @id = 1;
+EXECUTE stmt USING @id;    -- 정상. 이 시점에 lock_partitions 확정
+
+-- 파티션 경계 시각을 지난 뒤
+EXECUTE stmt USING @id;    -- ERROR 1748
+```
+
+`INSERT`가 `created_timestamp`를 **명시하지 않는다**는 점이 핵심이다 — 값이 `DEFAULT CURRENT_TIMESTAMP`로 채워지기 때문에 프루닝이 prepare 시점 시각에 묶인다.
+
 ## 재현 방법 — 경계를 기다리지 않는다
 
 `SET TIMESTAMP`으로 세션의 현재 시각을 조작해 즉시 재현한다. **순서가 핵심이다 — 먼저 경계 이전 시각으로 INSERT해 pruning 캐시를 만들어야 한다.**
