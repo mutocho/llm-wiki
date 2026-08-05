@@ -29,6 +29,7 @@ updated: 2026-08-04
 ## Key Takeaways
 
 - MySQL 회수 릴리스(8.0.29, 8.0.38/8.4.1)는 사용 금지 — [[dba/mysql-operations]]
+- **8.0.42는 파티션 pruning 회귀** — 증상 없다고 안전한 게 아니라 INSERT 이력이 없어 미노출일 뿐 — [[dba/mysql-partition-pruning-prepared-stmt-bug]]
 - `idle_in_transaction_session_timeout` 미설정이 PG bloat 장애 1순위 원인 — [[dba/postgresql-operations]]
 - AWS PI 콘솔 2026-07-31 종료 → Database Insights 전환 — [[dba/monitoring-incident-runbook]]
 - graph-query의 `index_only: true`는 신뢰 금지 — 폴디드 summary를 못 읽어 오탐 — [[references/obsidian-wiki-tooling-gotchas]]
