@@ -4,6 +4,9 @@ title: Wiki Log
 
 # Wiki Log
 
+- [2026-08-06] CAPTURE type=decision page="synthesis/vault-governance-decisions.md" title="볼트 거버넌스 결정 — career 회사 라우팅·에이전트 규칙 단일화·브랜치 금지"
+- [2026-08-06] UPDATE page="references/obsidian-wiki-tooling-gotchas.md" note="obsidian-git askpass chmod +x 반복 diff 함정 섹션 추가"
+
 - [2026-08-04] INGEST source="_raw/ (15 files)" pages_updated=0 pages_created=15 mode=raw
 - [2026-08-04] INIT vault_path="/Users/kakaogames/workspace/muto/second-brain" categories=concepts,entities,skills,references,synthesis,journal topics=dba,career
 - [2026-08-04] QUERY query="SQL Server 설치와 관련된 설정" result_pages=2 mode=normal escalated=false
