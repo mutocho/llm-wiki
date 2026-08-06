@@ -18,8 +18,8 @@ sources:
 category: dba
 lifecycle: verified
 tier: supporting
-created: 2026-08-04
-updated: 2026-08-04
+created: 2026-08-05
+updated: 2026-08-06
 ---
 
 # MySQL 8.0.42 파티션 pruning 캐시 회귀 (Bug #119309)
