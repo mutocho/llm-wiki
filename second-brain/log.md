@@ -25,6 +25,8 @@ title: Wiki Log
 - [2026-08-06] UPDATE page="dba/mysql-partition-pruning-prepared-stmt-bug.md" note="리포트 재확인 — 최소 재현 케이스·내부 함수명·SP 포함 추가. 사내 문서의 8.0.41 표기 정정(실제 8.0.42), Reorganize는 재발 방지가 아닌 리셋임을 명시"
 - [2026-08-06] CAPTURE type=synthesis page="synthesis/verbal-source-verification-policy.md" title="구술·사내 출처는 공식 문서 대조 전까지 승격하지 않는다"
 - [2026-08-06] QUERY query="MySQL 버전 업그레이드 관련 버그 내용 찾아서 보여줘" result_pages=2 mode=normal escalated=false
+- [2026-08-06] FIX note="세션 날짜 오기 정정 — mysql-partition-pruning 페이지(created 08-05/updated 08-06), verbal-source-verification-policy(08-06), log.md 5줄, hot.md 재정렬"
+- [2026-08-06] CAPTURE type=worklog page="career/kakaogames/dbgw-queries.md" title="dbgw 메타DB 운영 쿼리" note="원본 그대로 보관"
 - [2026-08-04] CAPTURE type=concept page="dba/postgresql-operations.md" title="롤별 search_path 설정 (단일 스키마 DB)"
 - [2026-08-04] CAPTURE type=decision page="ROUTING.md" title="career 범위 확장 — 회사 수행 작업 전체 기록"
 - [2026-08-04] QUERY query="forum db에 권한 부여한 내용 알려줘" result_pages=2 mode=normal escalated=false
