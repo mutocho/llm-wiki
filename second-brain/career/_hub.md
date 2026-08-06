@@ -27,3 +27,4 @@ topics: [career]
 ## 최근 페이지
 
 - [[career/kakaogames/notion-kb-consolidation-worklog|DBA 지식베이스 통합 정리 프로젝트 (2026-07)]]
+- [[career/kakaogames/dbgw-queries|dbgw 메타DB 운영 쿼리]]
