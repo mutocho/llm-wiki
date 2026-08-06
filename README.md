@@ -1,7 +1,7 @@
 # Muto 세컨드 브레인 (LLM Wiki)
 
 DBA 업무 지식과 커리어 기록을 함께 관리하는 개인 지식 시스템입니다.
-Obsidian 볼트(순수 마크다운) + Claude Code 스킬/훅 + git 자동 동기화로 구성되며, Codex 등 다른 AI 에이전트에서도 같은 규칙으로 사용할 수 있습니다.
+Obsidian 볼트(순수 마크다운) + Claude Code/Codex 스킬·hook + Git 자동 동기화로 구성됩니다.
 
 ## 1. 개요
 
@@ -9,7 +9,7 @@ Obsidian 볼트(순수 마크다운) + Claude Code 스킬/훅 + git 자동 동�
 ┌─ 작업 세션 (Claude Code / Codex) ─────────────────────┐
 │  발견·노하우 발생                                      │
 │    ├─ 수동: /wiki-capture            → _raw/ 초안 적재 │
-│    └─ 자동: Stop 훅 → /wiki-capture --quick            │
+│    └─ 자동(Claude): Stop 훅 → /wiki-capture --quick    │
 └───────────────────────────────────────────────────────┘
                      ↓ (주기적으로)
    /wiki-ingest  →  _raw/ 초안을 dba/·career/ 정식 페이지로 승격
@@ -53,144 +53,303 @@ muto/
     └── .obsidian/             # Obsidian 설정
 ```
 
-## 3. 다른 장비에서 구축하기
+## 3. 새 장비 초기 설정
 
-### 사전 조건
+운영체제와 에이전트 조합에 따라 아래 네 경로 중 하나를 선택합니다. Claude Code와 Codex를 함께 사용한다면 같은 운영체제의 두 절차를 모두 적용합니다.
 
-- AI 코딩 에이전트: Claude Code 또는 Codex CLI (둘 다 있어도 됨 — 같은 볼트를 공유)
-- git, python3 (macOS/Linux 기본 포함)
-- (선택) Obsidian 앱 — 그래프 뷰·편집용. 볼트는 순수 마크다운이라 없어도 동작
+| 운영체제 | Claude Code | Codex |
+|---|---|---|
+| macOS | [3-2](#3-2-macos--claude-code) | [3-3](#3-3-macos--codex) |
+| Windows | [3-4](#3-4-windows--claude-code) | [3-5](#3-5-windows--codex) |
 
-### 3-1. obsidian-wiki 스킬 세트 설치
+### 3-1. 공통 준비
 
-위키 스킬(`/wiki-capture`, `/wiki-ingest`, `/wiki-query` 등)은 [obsidian-wiki](https://github.com/Ar9av/obsidian-wiki) 패키지가 제공합니다. 새 장비에서 먼저 설치합니다:
+필수 도구는 Git, Python 3, 사용할 AI 에이전트입니다. Obsidian 앱은 선택 사항입니다.
+
+1. 저장소를 클론합니다.
+2. `obsidian-wiki`를 설치하고 `setup`을 실행합니다.
+3. `second-brain/env.example`을 `second-brain/.env`로 복사한 뒤 절대 경로를 입력합니다.
+4. `obsidian-wiki doctor`와 `/wiki-status`로 설치를 검증합니다.
+
+`obsidian-wiki setup`은 설치된 에이전트를 감지하여 다음 위치에 스킬과 설정을 배치합니다.
+
+- Claude Code: `~/.claude/skills/wiki-*`
+- Codex: `~/.codex/skills/wiki-*`, `~/.codex/prompts/wiki-*`
+- 공통 볼트 설정: `~/.obsidian-wiki/config`
+
+> **Hook 호환성:** `wiki-stop-capture.sh`는 Claude Code transcript와 Stop 규약을 기준으로 작성되었습니다. Codex도 최신 버전에서 hook을 지원하지만 transcript 형식이 다르므로 이 스크립트를 Codex Stop hook에 그대로 등록하지 않습니다. Codex에서는 Git 동기화 hook과 `AGENTS.md`를 사용하고, 자동 캡처는 Codex 호환 스크립트가 제공될 때까지 `/wiki-capture --quick`을 수동 실행합니다.
+
+### 3-2. macOS × Claude Code
 
 ```bash
-# 1. 패키지 설치
-pip install obsidian-wiki
+git clone https://github.com/mutocho/llm-wiki.git ~/muto
+cd ~/muto
 
-# 2. 스킬을 장비에 설치된 모든 AI 에이전트(Claude Code, Codex 등)에 설치 + 전역 config 생성
+python3 -m pip install obsidian-wiki
 obsidian-wiki setup
-# 프롬프트에서 볼트 경로를 물으면 <클론 경로>/second-brain 지정
-# (클론 전이면 아무 경로로 진행 후 ~/.obsidian-wiki/config 에서 수정)
 
-# 3. 설치 확인
-obsidian-wiki info      # 설치 경로·버전·config 확인
-obsidian-wiki doctor    # 상태 진단
-ls ~/.claude/skills | grep wiki   # wiki-* 스킬 존재 확인
+cp second-brain/env.example second-brain/.env
+chmod +x second-brain/sync.sh
 ```
 
-설치 결과물 (패키지 파일로의 심볼릭 링크):
-- `~/.claude/skills/wiki-*`, `~/.claude/skills/llm-wiki` — Claude Code용 스킬
-- `~/.codex/skills/wiki-*`, `~/.codex/prompts/wiki-*` — Codex용 스킬/프롬프트 (Codex가 설치돼 있으면 자동)
-- `~/.obsidian-wiki/config` — 전역 설정 (`OBSIDIAN_VAULT_PATH` 등). 프로젝트별 `.env`가 있으면 그것이 우선
+`second-brain/.env`를 다음처럼 수정합니다.
 
-### 3-2. 저장소 클론과 기본 셋팅
+```dotenv
+OBSIDIAN_VAULT_PATH=/Users/<username>/muto/second-brain
+OBSIDIAN_SOURCES_DIR=/Users/<username>/muto
+CLAUDE_HISTORY_PATH=/Users/<username>/.claude
+CODEX_HISTORY_PATH=/Users/<username>/.codex
+```
+
+#### Claude hook 설정
+
+1. `.claude/settings.json`의 `PostToolUse` 명령을 현재 클론의 절대 경로로 바꿉니다.
+
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/<username>/muto/second-brain/sync.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+2. 세션 종료 자동 캡처용 Stop hook을 설치합니다.
 
 ```bash
-# 1. 저장소 클론
-git clone https://github.com/mutocho/llm-wiki.git muto
-cd muto
-
-# 2. .env 생성 (경로를 새 장비에 맞게 수정)
-cp second-brain/env.example second-brain/.env
-# OBSIDIAN_VAULT_PATH=<클론 경로>/second-brain
-# OBSIDIAN_SOURCES_DIR=<클론 경로>
-# CLAUDE_HISTORY_PATH=~/.claude
-# CODEX_HISTORY_PATH=~/.codex
-
-# 3. sync.sh 실행 권한
-chmod +x second-brain/sync.sh
-
-# 4. .claude/settings.json의 훅 경로 수정
-#    (auto-sync 훅이 절대 경로를 쓰므로 새 장비 경로로 변경)
-#    "command": "bash <클론 경로>/second-brain/sync.sh"
-
-# 5. (선택) 세션 종료 자동 캡처 훅 설치
 mkdir -p ~/.obsidian-wiki/hooks
 curl -fsSL https://raw.githubusercontent.com/Ar9av/obsidian-wiki/main/.claude/hooks/wiki-stop-capture.sh \
   -o ~/.obsidian-wiki/hooks/wiki-stop-capture.sh
 chmod +x ~/.obsidian-wiki/hooks/wiki-stop-capture.sh
-# ~/.claude/settings.json 의 hooks 에 추가:
-#   "Stop": [{"matcher": "", "hooks": [{"type": "command",
-#     "command": "bash ~/.obsidian-wiki/hooks/wiki-stop-capture.sh"}]}]
-# 추가 후 JSON 유효성 검증:
-python3 -c "import json,os; json.load(open(os.path.expanduser('~/.claude/settings.json'))); print('OK')"
-
-# 5-1. (선택) Stop 훅에 볼트 git 동기화 패치 추가
-#    다운로드한 wiki-stop-capture.sh 의 `INPUT=$(cat)` 바로 아래에 삽입:
-#
-#    VAULT_SYNC="<클론 경로>/second-brain/sync.sh"
-#    [[ -x "$VAULT_SYNC" ]] && bash "$VAULT_SYNC" </dev/null >/dev/null 2>&1 || true
-#
-#    반드시 stop_hook_active 조기 종료 검사보다 앞에 두어야 한다 —
-#    캡처는 훅 알림 다음 턴에 실행되므로, 캡처 턴이 끝난 뒤의 Stop에서도
-#    방금 쓴 _raw/ 파일이 커밋되게 하기 위함. 이 패치로 muto 프로젝트 밖에서
-#    작업하다 볼트에 캡처한 경우에도 세션 종료 시 자동 commit+push 된다.
-
-# 6. (선택) Obsidian에서 File → Open Vault → second-brain 선택
 ```
 
-### 3-3. Codex 환경 구축 (선택)
+`~/.claude/settings.json`의 기존 설정을 보존하면서 다음 `Stop` 항목을 병합합니다.
 
-Codex CLI를 쓰는 장비라면 추가 설정은 거의 없습니다:
+```json
+{
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.obsidian-wiki/hooks/wiki-stop-capture.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
 
-- **스킬**: 3-1의 `obsidian-wiki setup`이 `~/.codex/skills/`와 `~/.codex/prompts/`에 함께 설치합니다. 이미 setup을 실행했다면 끝. Codex를 나중에 설치했다면 `obsidian-wiki setup`을 다시 실행하면 됩니다.
-- **적재 규칙**: 프로젝트 루트의 `AGENTS.md`를 Codex가 자동으로 읽습니다 (볼트 위치, ROUTING 규칙, 민감정보 금지 포함). 별도 설정 불필요.
-- **git 동기화**: Codex에는 Claude Code의 PostToolUse/Stop 훅이 없습니다. 대신 `AGENTS.md`가 "볼트 쓰기 후 `bash second-brain/sync.sh` 실행"을 지시하므로 지침 기반으로 동기화됩니다. 세션 종료 자동 캡처(위 5번 훅)도 없으므로, 남길 지식은 세션 중 `/wiki-capture`로 직접 캡처합니다.
+3. `python3 -m json.tool ~/.claude/settings.json`으로 JSON을 검사하고 Claude Code의 `/hooks`에서 등록 상태를 확인합니다. 저장소에서 `/wiki-status`를 실행한 뒤 테스트 파일을 편집해 auto-sync와 Stop 캡처를 검증합니다.
 
-검증:
-- Claude Code: 이 디렉터리에서 열고 `/wiki-status` 실행 → 볼트가 인식되면 완료.
-- Codex: 이 디렉터리에서 `codex` 실행 후 `/wiki-status` → 동일하게 확인.
+### 3-3. macOS × Codex
 
-### 3-4. Windows 환경 구축
+```bash
+git clone https://github.com/mutocho/llm-wiki.git ~/muto
+cd ~/muto
 
-Windows에서는 PowerShell을 기본 터미널로 사용하고, `sync.sh`를 실행할 수 있도록 **Git for Windows (Git Bash 포함)**를 설치합니다. Python 3, Git for Windows, 선택적으로 Obsidian과 Claude Code/Codex CLI가 필요합니다.
+python3 -m pip install obsidian-wiki
+obsidian-wiki setup
 
-PowerShell에서 다음 순서로 구성합니다:
+cp second-brain/env.example second-brain/.env
+chmod +x second-brain/sync.sh
+mkdir -p ~/.codex
+```
+
+`.env`는 [macOS × Claude Code](#3-2-macos--claude-code)와 동일하게 설정합니다. Codex는 프로젝트 루트의 `AGENTS.md`에서 볼트 라우팅과 동기화 규칙을 자동으로 읽습니다.
+
+#### Codex hook 설정
+
+`~/.codex/hooks.json`을 만들거나 기존 hook 정의에 다음 `PostToolUse` 항목을 병합합니다.
+
+```json
+{
+  "description": "Sync Obsidian vault writes",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "apply_patch|Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/<username>/muto/second-brain/sync.sh",
+            "statusMessage": "Syncing the Obsidian vault"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+Codex를 다시 시작한 뒤 CLI의 `/hooks`에서 정의를 검토하고 신뢰해야 실행됩니다. `/wiki-status`로 볼트를 확인하고 볼트 파일을 한 번 수정해 Git 동기화를 검증합니다.
+
+> Codex의 `Stop` hook 자체는 지원되지만, 현재 `wiki-stop-capture.sh`는 Claude transcript 구조를 분석합니다. Codex Stop에 직접 등록하면 작업량 판별이 되지 않으므로 자동 캡처에는 사용하지 않습니다. Codex에서는 세션 중 `/wiki-capture --quick`을 실행합니다.
+
+### 3-4. Windows × Claude Code
+
+Git for Windows, Python 3, Claude Code를 먼저 설치합니다. Claude Code가 Git Bash를 찾지 못하면 다음 환경 변수를 사용자 환경에 등록합니다.
 
 ```powershell
-# 1. 저장소 클론
-git clone https://github.com/mutocho/llm-wiki.git muto
-Set-Location muto
+[Environment]::SetEnvironmentVariable(
+  "CLAUDE_CODE_GIT_BASH_PATH",
+  "C:\Program Files\Git\bin\bash.exe",
+  "User"
+)
+```
 
-# 2. Python 패키지 설치 및 스킬 설정
+PowerShell에서 공통 설치를 진행합니다.
+
+```powershell
+git clone https://github.com/mutocho/llm-wiki.git "$HOME\muto"
+Set-Location "$HOME\muto"
+
 py -m pip install obsidian-wiki
 obsidian-wiki setup
 
-# 3. 로컬 .env 생성 (이 파일은 Git에 추적되지 않음)
 Copy-Item second-brain\env.example second-brain\.env
 notepad second-brain\.env
-
-# 4. 설치 상태 확인
-obsidian-wiki info
-obsidian-wiki doctor
-Get-ChildItem "$HOME\.claude\skills" -Filter "wiki*"
 ```
 
-`.env`의 Windows 경로는 이스케이프가 필요 없는 슬래시(`/`)로 적는 것이 간단합니다.
+`second-brain/.env`에는 슬래시(`/`)를 사용한 절대 경로를 권장합니다.
 
 ```dotenv
 OBSIDIAN_VAULT_PATH=C:/Users/<username>/muto/second-brain
 OBSIDIAN_SOURCES_DIR=C:/Users/<username>/muto
 CLAUDE_HISTORY_PATH=C:/Users/<username>/.claude
 CODEX_HISTORY_PATH=C:/Users/<username>/.codex
-WIKI_TOKEN_WARN_THRESHOLD=20000
 ```
 
-PowerShell에서 동기화 스크립트를 수동 실행할 때는 Git for Windows의 `bash.exe`가 `PATH`에 있는지 확인한 뒤 다음과 같이 실행합니다:
+#### Claude hook 설정
+
+`.claude/settings.json`의 `PostToolUse` 명령을 다음 형식으로 바꿉니다.
+
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:\\Program Files\\Git\\bin\\bash.exe\" C:/Users/<username>/muto/second-brain/sync.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+Stop hook 스크립트는 설치된 패키지에서 복사합니다.
 
 ```powershell
-bash second-brain/sync.sh
+$hookSource = py -c "import obsidian_wiki, pathlib; print(pathlib.Path(obsidian_wiki.__file__).parent / '_data' / 'hooks' / 'wiki-stop-capture.sh')"
+New-Item -ItemType Directory -Force "$HOME\.obsidian-wiki\hooks" | Out-Null
+Copy-Item $hookSource "$HOME\.obsidian-wiki\hooks\wiki-stop-capture.sh"
 ```
 
-`bash`를 찾지 못하면 Git Bash에서 저장소를 열어 같은 명령을 실행하거나 Git for Windows의 `bin` 경로를 `PATH`에 추가합니다. 마지막으로 Obsidian에서 **Open folder as vault**를 선택하여 `second-brain` 폴더를 열고, Claude Code 또는 Codex에서 `/wiki-status`를 실행해 인식 여부를 확인합니다.
+`$HOME\.claude\settings.json`에 다음 항목을 기존 설정과 병합합니다.
+
+```json
+{
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:\\Program Files\\Git\\bin\\bash.exe\" C:/Users/<username>/.obsidian-wiki/hooks/wiki-stop-capture.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+`Get-Content "$HOME\.claude\settings.json" -Raw | ConvertFrom-Json | Out-Null`로 JSON을 검사하고, Claude Code를 다시 시작한 뒤 `/hooks`와 `/wiki-status`로 확인합니다.
+
+### 3-5. Windows × Codex
+
+Git for Windows, Python 3, Codex를 설치한 뒤 PowerShell에서 진행합니다.
+
+```powershell
+git clone https://github.com/mutocho/llm-wiki.git "$HOME\muto"
+Set-Location "$HOME\muto"
+
+py -m pip install obsidian-wiki
+obsidian-wiki setup
+
+Copy-Item second-brain\env.example second-brain\.env
+notepad second-brain\.env
+New-Item -ItemType Directory -Force "$HOME\.codex" | Out-Null
+```
+
+`.env`는 [Windows × Claude Code](#3-4-windows--claude-code)와 동일하게 설정합니다. Codex는 프로젝트의 `AGENTS.md`를 자동으로 읽습니다.
+
+`$HOME\.codex\hooks.json`을 만들거나 다음 `PostToolUse` 항목을 기존 설정에 병합합니다.
+
+```json
+{
+  "description": "Sync Obsidian vault writes",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "apply_patch|Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash C:/Users/<username>/muto/second-brain/sync.sh",
+            "commandWindows": "\"C:\\Program Files\\Git\\bin\\bash.exe\" C:/Users/<username>/muto/second-brain/sync.sh",
+            "statusMessage": "Syncing the Obsidian vault"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+`Get-Content "$HOME\.codex\hooks.json" -Raw | ConvertFrom-Json | Out-Null`로 JSON을 검사합니다. Codex를 다시 시작한 뒤 CLI의 `/hooks`에서 hook을 검토·신뢰하고 `/wiki-status`를 실행합니다.
+
+> Windows Codex도 `wiki-stop-capture.sh`를 직접 등록하지 않습니다. Git Bash에서 스크립트를 실행할 수는 있지만 Codex transcript 형식과 호환되지 않습니다. 자동 캡처가 필요하면 Codex 호환 Stop hook을 별도로 구현해야 하며, 현재는 `/wiki-capture --quick`을 사용합니다.
+
+### 3-6. 공통 최종 검증
+
+```bash
+obsidian-wiki info
+obsidian-wiki doctor
+bash second-brain/sync.sh
+git status --short --branch
+```
+
+- `obsidian-wiki doctor`에 치명적 오류가 없어야 합니다.
+- `/wiki-status`가 `second-brain` 볼트를 인식해야 합니다.
+- `git status`가 `main...origin/main`이고 작업 트리가 깨끗해야 합니다.
+- Obsidian을 사용한다면 **Open folder as vault**로 `second-brain` 폴더를 엽니다.
+
+공식 hook 규약은 [Claude Code Hooks reference](https://code.claude.com/docs/en/hooks)와 [Codex Advanced Configuration — Hooks](https://learn.chatgpt.com/docs/config-advanced#hooks)를 기준으로 합니다.
 
 ## 4. 일상 사용법
 
 ### 기본 흐름
 
-1. **작업한다** — Claude Code 또는 Codex로 평소처럼 작업. Claude Code는 의미 있는 편집이 있던 세션 종료 시 Stop 훅이 `/wiki-capture --quick`을 유도해 발견 사항이 `_raw/`에 자동 드롭됩니다 (Codex는 훅이 없어 수동 캡처만).
+1. **작업한다** — Claude Code 또는 Codex로 평소처럼 작업. Claude Code는 의미 있는 편집이 있던 턴의 Stop hook이 `/wiki-capture --quick`을 유도합니다. Codex도 hook을 지원하지만 현재 자동 캡처 스크립트와 transcript 형식이 달라 수동 캡처를 사용합니다.
 2. **수동 캡처** — 대화 중 남기고 싶은 지식이 생기면 즉시 `/wiki-capture`(정식 페이지) 또는 `/wiki-capture --quick`(초안만).
 3. **주기적 승격** — `_raw/`가 쌓이면 `/wiki-ingest`로 dba/career 정식 페이지로 승격. career 페이지는 회사 단위로 자동 라우팅됩니다 (`ROUTING.md` — 현재 회사 카카오게임즈 → `career/kakaogames/`, 불분명하면 `career/common/`).
 4. **검색** — 과거 지식이 필요하면 `/wiki-query <질문>`.
@@ -216,16 +375,16 @@ bash second-brain/sync.sh
 | 블록 | 용도 |
 |---|---|
 | `V="$(cd "$(dirname "$0")" && pwd)"` | 스크립트 위치 기준으로 볼트 경로 자동 결정 (장비 간 이식성) |
-| stdin JSON 파싱 (`[ ! -t 0 ]` 분기) | 훅 호출 시 Claude Code가 넘긴 `tool_input.file_path`를 읽음. 터미널에서 직접 실행하면 건너뜀 |
+| stdin JSON 파싱 (`[ ! -t 0 ]` 분기) | hook 호출 시 `tool_input.file_path`를 읽음. 터미널에서 직접 실행하면 건너뜀 |
 | `case "$f" in "$V"/*)` | 수정된 파일이 볼트 내부일 때만 진행 — 일반 코드 작업에서는 커밋 안 생김 |
 | `git add -A . && git diff --cached --quiet` | 볼트 변경분만 스테이징, 변경 없으면 종료 |
 | `git commit -qm "wiki: auto-sync <일시>" && git push -q` | 타임스탬프 커밋 후 push (원격 없거나 실패해도 조용히 통과) |
 
 수동 실행: `bash second-brain/sync.sh` (stdin 없이 실행하면 무조건 동기화).
 
-### ~/.obsidian-wiki/hooks/wiki-stop-capture.sh — 세션 종료 자동 캡처
+### ~/.obsidian-wiki/hooks/wiki-stop-capture.sh — Claude 자동 캡처
 
-Claude Code Stop 이벤트마다 실행되어, 의미 있는 작업이 있던 세션에서만 `/wiki-capture --quick`을 유도합니다.
+Claude Code Stop 이벤트마다 실행되어, 의미 있는 작업이 있던 세션에서만 `/wiki-capture --quick`을 유도합니다. Codex에는 직접 등록하지 않습니다.
 
 | 함수/블록 | 용도 |
 |---|---|
@@ -247,7 +406,13 @@ Claude Code Stop 이벤트마다 실행되어, 의미 있는 작업이 있던 �
 
 ### AGENTS.md — Codex 연동
 
-Codex가 이 프로젝트에서 실행되면 자동으로 읽는 지침 파일. 볼트 위치, ROUTING 규칙, 민감정보 금지, 볼트 쓰기 후 `bash second-brain/sync.sh` 실행 규칙을 담고 있습니다. Codex에는 훅이 없으므로 지침 기반으로 동작합니다.
+Codex가 이 프로젝트에서 실행되면 자동으로 읽는 지침 파일입니다. 볼트 위치, ROUTING 규칙, 민감정보 금지, 볼트 쓰기 후 `bash second-brain/sync.sh` 실행 규칙을 담습니다. Codex hook이 누락되거나 신뢰되지 않은 상황에서도 이 지침이 동기화의 안전망으로 동작합니다.
+
+### ~/.codex/hooks.json — Codex auto-sync hook
+
+Codex는 `SessionStart`, `PreToolUse`, `PostToolUse`, `Stop`, `SessionEnd` 등의 lifecycle hook을 지원합니다. 이 저장소에서는 `PostToolUse`에 `second-brain/sync.sh`를 연결해 볼트 변경을 Git에 동기화합니다. 사용자·프로젝트 hook은 정의가 바뀔 때마다 Codex CLI의 `/hooks`에서 검토하고 신뢰해야 합니다.
+
+현재 Claude용 `wiki-stop-capture.sh`는 Claude transcript 구조를 읽으므로 Codex Stop hook에는 연결하지 않습니다. Codex에서 남길 지식은 `/wiki-capture --quick`으로 수동 캡처합니다.
 
 ### .claude/settings.json (프로젝트) — auto-sync 훅
 
@@ -270,8 +435,10 @@ Claude Code가 파일을 쓸 때마다 sync.sh를 호출하고, sync.sh가 볼�
 
 | 증상 | 원인/해결 |
 |---|---|
-| 커밋이 안 생김 | sync.sh 실행 권한(`chmod +x`), settings.json의 절대 경로 확인 |
-| 세션 종료 시 캡처 안 뜸 | 편집 0건 + 읽기 전용 세션은 정상 스킵. `/tmp/wiki-stop-capture-*.done` 센티널은 세션당 1회 |
-| 훅 등록 후 Claude Code 오류 | `~/.claude/settings.json` JSON 문법(트레일링 콤마) 검증 |
+| 커밋이 안 생김 | `sync.sh` 경로, Git Bash, hook 등록 상태를 확인. Codex는 `/hooks`에서 신뢰 여부도 확인 |
+| Claude 종료 시 캡처 안 뜸 | 편집 0건 + 읽기 전용 세션은 정상 스킵. `${TMPDIR:-/tmp}/wiki-stop-capture-*.done` 센티널 확인 |
+| Codex 종료 시 자동 캡처가 안 뜸 | 현재 정상 동작. Claude용 스크립트는 Codex transcript와 호환되지 않으므로 `/wiki-capture --quick` 사용 |
+| hook 등록 후 Claude Code 오류 | `~/.claude/settings.json`을 `python3 -m json.tool` 또는 PowerShell `ConvertFrom-Json`으로 검증 |
+| hook 등록 후 Codex에서 실행 안 됨 | `hooks.json` 문법, `[features].hooks=false` 여부, `/hooks`의 검토·신뢰 상태 확인 |
 | `_raw/`가 계속 쌓임 | `/wiki-ingest`를 주기적으로 실행 (승격 후 `_raw/_archived/`로 이동됨) |
 | push 실패가 조용히 지나감 | sync.sh는 push 실패를 무시함(오프라인 허용). `git status -sb`로 ahead 여부 확인 후 수동 push |
