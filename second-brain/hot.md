@@ -30,6 +30,7 @@ updated: 2026-08-06
 
 ## Key Takeaways
 
+- career 새 페이지는 반드시 회사 폴더 하위(`career/kakaogames/` 또는 `career/common/`) — 루트 직접 적재 금지 — [[synthesis/vault-governance-decisions]]
 - MySQL 회수 릴리스(8.0.29, 8.0.38/8.4.1)는 사용 금지 — [[dba/mysql-operations]]
 - **8.0.42는 파티션 pruning 회귀** — 증상 없다고 안전한 게 아니라 INSERT 이력이 없어 미노출일 뿐 — [[dba/mysql-partition-pruning-prepared-stmt-bug]]
 - 구술·사내 출처의 오류는 **수치·버전·한도**에 몰린다 — 대조 전 `verified` 승격 금지 — [[synthesis/verbal-source-verification-policy]]
