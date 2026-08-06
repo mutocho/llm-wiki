@@ -39,3 +39,4 @@ title: Wiki Log
 - [2026-08-04] EXPORT target="Notion 🗃️ DBA" pages=1 source="dba/aurora-dsql.md"
 - [2026-08-06T22:12:45+09:00] QUERY query="AWS Aurora DSQL 관련한 내용 찾아줘" result_pages=2 mode=normal escalated=false
 - [2026-08-06T22:14:49+09:00] CAPTURE type=session page="career/kakaogames/dba-agent-work-plan.md" title="DBA Agent 구조 개편 및 주간 분석 작업 계획"
+- [2026-08-06T22:58:55+09:00] QUERY query="내일 할 작업에 대해 정리해줘" result_pages=1 mode=normal escalated=false
