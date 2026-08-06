@@ -302,21 +302,34 @@ New-Item -ItemType Directory -Force "$HOME\.codex" | Out-Null
 
 `.env`는 [Windows × Claude Code](#3-4-windows--claude-code)와 동일하게 설정합니다. Codex는 프로젝트의 `AGENTS.md`를 자동으로 읽습니다.
 
-`$HOME\.codex\hooks.json`을 만들거나 다음 `PostToolUse` 항목을 기존 설정에 병합합니다.
+`$HOME\.codex\hooks.json`을 만들거나 다음 `PreToolUse`와 `PostToolUse` 항목을 기존 설정에 병합합니다. 두 훅은 셸 명령 전후에 `second-brain/git-sync-hook.sh`를 실행합니다.
 
 ```json
 {
-  "description": "Sync Obsidian vault writes",
+  "description": "Synchronize second-brain before and after shell tool use",
   "hooks": {
-    "PostToolUse": [
+    "PreToolUse": [
       {
-        "matcher": "apply_patch|Edit|Write",
+        "matcher": "Bash|shell_command",
         "hooks": [
           {
             "type": "command",
-            "command": "bash C:/Users/<username>/muto/second-brain/sync.sh",
-            "commandWindows": "\"C:\\Program Files\\Git\\bin\\bash.exe\" C:/Users/<username>/muto/second-brain/sync.sh",
-            "statusMessage": "Syncing the Obsidian vault"
+            "command": "bash C:/Users/<username>/muto/second-brain/git-sync-hook.sh",
+            "commandWindows": "\"C:\\Program Files\\Git\\bin\\bash.exe\" --login -c \"bash C:/Users/<username>/muto/second-brain/git-sync-hook.sh\"",
+            "statusMessage": "Syncing second-brain before tool use"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash|shell_command",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash C:/Users/<username>/muto/second-brain/git-sync-hook.sh",
+            "commandWindows": "\"C:\\Program Files\\Git\\bin\\bash.exe\" --login -c \"bash C:/Users/<username>/muto/second-brain/git-sync-hook.sh\"",
+            "statusMessage": "Syncing second-brain after tool use"
           }
         ]
       }
@@ -324,6 +337,8 @@ New-Item -ItemType Directory -Force "$HOME\.codex" | Out-Null
   }
 }
 ```
+
+`git-sync-hook.sh`는 `second-brain/` 변경만 자동 커밋합니다. 저장소의 다른 경로에 로컬 변경이 있으면 동기화를 건너뛰며, pull 충돌은 원격 버전을 우선하는 `git pull --no-rebase -X theirs`로 병합한 후 push합니다. Codex의 `PreToolUse`와 `PostToolUse`는 현재 셸 명령에 대해서만 실행됩니다.
 
 `Get-Content "$HOME\.codex\hooks.json" -Raw | ConvertFrom-Json | Out-Null`로 JSON을 검사합니다. Codex를 다시 시작한 뒤 CLI의 `/hooks`에서 hook을 검토·신뢰하고 `/wiki-status`를 실행합니다.
 
@@ -410,7 +425,7 @@ Codex가 이 프로젝트에서 실행되면 자동으로 읽는 지침 파일�
 
 ### ~/.codex/hooks.json — Codex auto-sync hook
 
-Codex는 `SessionStart`, `PreToolUse`, `PostToolUse`, `Stop`, `SessionEnd` 등의 lifecycle hook을 지원합니다. 이 저장소에서는 `PostToolUse`에 `second-brain/sync.sh`를 연결해 볼트 변경을 Git에 동기화합니다. 사용자·프로젝트 hook은 정의가 바뀔 때마다 Codex CLI의 `/hooks`에서 검토하고 신뢰해야 합니다.
+Codex는 `SessionStart`, `PreToolUse`, `PostToolUse`, `Stop`, `SessionEnd` 등의 lifecycle hook을 지원합니다. 이 저장소에서는 Windows Codex의 `PreToolUse`와 `PostToolUse`에 `second-brain/git-sync-hook.sh`를 연결합니다. 스크립트는 볼트 변경만 커밋하고, 원격 우선 merge 후 push하며, 볼트 외부에 로컬 변경이 있으면 실행을 건너뜁니다. 현재 두 tool hook은 셸 명령에 대해서만 실행됩니다. 사용자·프로젝트 hook은 정의가 바뀔 때마다 Codex CLI의 `/hooks`에서 검토하고 신뢰해야 합니다.
 
 현재 Claude용 `wiki-stop-capture.sh`는 Claude transcript 구조를 읽으므로 Codex Stop hook에는 연결하지 않습니다. Codex에서 남길 지식은 `/wiki-capture --quick`으로 수동 캡처합니다.
 
@@ -439,6 +454,7 @@ Claude Code가 파일을 쓸 때마다 sync.sh를 호출하고, sync.sh가 볼�
 | Claude 종료 시 캡처 안 뜸 | 편집 0건 + 읽기 전용 세션은 정상 스킵. `${TMPDIR:-/tmp}/wiki-stop-capture-*.done` 센티널 확인 |
 | Codex 종료 시 자동 캡처가 안 뜸 | 현재 정상 동작. Claude용 스크립트는 Codex transcript와 호환되지 않으므로 `/wiki-capture --quick` 사용 |
 | hook 등록 후 Claude Code 오류 | `~/.claude/settings.json`을 `python3 -m json.tool` 또는 PowerShell `ConvertFrom-Json`으로 검증 |
-| hook 등록 후 Codex에서 실행 안 됨 | `hooks.json` 문법, `[features].hooks=false` 여부, `/hooks`의 검토·신뢰 상태 확인 |
+| hook 등록 후 Codex에서 실행 안 됨 | `hooks.json` 문법, `[features].codex_hooks=true` 여부, `/hooks`의 검토·신뢰 상태 확인 |
+| Codex Git 동기화가 건너뛰어짐 | `second-brain/` 외부의 로컬 변경을 먼저 커밋하거나 되돌린 뒤 다시 실행 |
 | `_raw/`가 계속 쌓임 | `/wiki-ingest`를 주기적으로 실행 (승격 후 `_raw/_archived/`로 이동됨) |
 | push 실패가 조용히 지나감 | sync.sh는 push 실패를 무시함(오프라인 허용). `git status -sb`로 ahead 여부 확인 후 수동 push |
