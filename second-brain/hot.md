@@ -9,6 +9,7 @@ updated: 2026-08-06
 
 ## Recent Activity
 
+- [2026-08-06] CAPTURE — [[synthesis/vault-governance-decisions]] 신규 (decision). career를 회사 단위 폴더(`career/kakaogames/`, 불분명 시 `career/common/`)로 재구성하고 기존 2페이지 이동. 규칙은 AGENTS.md 단일 소스 + CLAUDE.md `@AGENTS.md` import, 이 저장소는 브랜치 금지·main 직접 커밋. obsidian-git askpass chmod 함정은 [[references/obsidian-wiki-tooling-gotchas]]에 병합.
 - [2026-08-04] CAPTURE — Aurora DSQL 세미나 노트를 [[dba/aurora-dsql]] 신규 페이지로 적재 (낙관적 락, buffer pool 없음, 앱 리트라이 필수). dba/ 13페이지를 Notion 🗃️ DBA 하위로 내보냄.
 - [2026-08-04] LINT+CAPTURE — 깨진 wikilink 2건(경로 접두어 누락) 수정, career/2026 frontmatter 보강. wikilink 접두어 함정을 [[references/obsidian-wiki-tooling-gotchas]]에 병합.
 - [2026-08-04] CAPTURE — forum DB 롤별 search_path 설정을 [[dba/postgresql-operations]]·[[career/2026]]에 이중 적재. career 범위를 "회사 수행 작업 전체 기록"으로 확장 (ROUTING.md).
