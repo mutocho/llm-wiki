@@ -24,6 +24,11 @@ fi
 
 # Prefer the remote version for conflicting hunks.
 if ! git pull --no-rebase -X theirs -q; then
+  # Authentication, network, and permission failures are not merge conflicts.
+  if [ ! -f .git/MERGE_HEAD ] &&
+     ! git diff --name-only --diff-filter=U | grep -q .; then
+    exit 0
+  fi
   git checkout --theirs -- . >/dev/null 2>&1 || true
   git add -A
   if git diff --name-only --diff-filter=U | grep -q .; then
