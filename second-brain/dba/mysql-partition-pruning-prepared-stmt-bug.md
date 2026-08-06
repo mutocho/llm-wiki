@@ -10,11 +10,11 @@ base_confidence: 0.85
 provenance:
   extracted: 0.85
   inferred: 0.15
-lifecycle_changed: 2026-08-04
+lifecycle_changed: 2026-08-05
 sources:
-  - "MySQL Bug #119309 — An insert prepared statement fails to write across partitions (https://bugs.mysql.com/bug.php?id=119309, 2026-08-04 확인)"
-  - "자체 재현 테스트 (second-brain session 2026-08-04)"
-  - "사내 DB 버그 사례 정리 (2026-08-04) — Reorganize 해소 사례"
+  - "MySQL Bug #119309 — An insert prepared statement fails to write across partitions (https://bugs.mysql.com/bug.php?id=119309, 2026-08-05 확인 / 2026-08-06 재확인)"
+  - "자체 재현 테스트 (second-brain session 2026-08-05)"
+  - "사내 DB 버그 사례 정리 (2026-08-06) — Reorganize 해소 사례"
 category: dba
 lifecycle: verified
 tier: supporting
