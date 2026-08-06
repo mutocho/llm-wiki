@@ -4,7 +4,7 @@ title: Wiki Index
 
 # Wiki Index
 
-*This index is automatically maintained. Last updated: 2026-08-04*
+*This index is automatically maintained. Last updated: 2026-08-06*
 
 ## 주제 허브
 
