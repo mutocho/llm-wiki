@@ -37,3 +37,4 @@ title: Wiki Log
 - [2026-08-04] CAPTURE type=source page="dba/aurora-dsql.md" title="AWS Aurora DSQL — 분산 서버리스 PostgreSQL 호환 DB"
 - [2026-08-04] LINT issues_found=0 orphans=0 broken_links=0 stale=0 contradictions=0 prov_issues=0 missing_summary=0 fragmented_clusters=0 visibility_issues=0 promotion_candidates=0 synthesis_gaps=0 relationship_issues=0
 - [2026-08-04] EXPORT target="Notion 🗃️ DBA" pages=1 source="dba/aurora-dsql.md"
+- [2026-08-06T22:12:45+09:00] QUERY query="AWS Aurora DSQL 관련한 내용 찾아줘" result_pages=2 mode=normal escalated=false
