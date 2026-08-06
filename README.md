@@ -97,6 +97,7 @@ cp second-brain/env.example second-brain/.env
 # OBSIDIAN_VAULT_PATH=<클론 경로>/second-brain
 # OBSIDIAN_SOURCES_DIR=<클론 경로>
 # CLAUDE_HISTORY_PATH=~/.claude
+# CODEX_HISTORY_PATH=~/.codex
 
 # 3. sync.sh 실행 권한
 chmod +x second-brain/sync.sh
@@ -173,6 +174,7 @@ Get-ChildItem "$HOME\.claude\skills" -Filter "wiki*"
 OBSIDIAN_VAULT_PATH=C:/Users/<username>/muto/second-brain
 OBSIDIAN_SOURCES_DIR=C:/Users/<username>/muto
 CLAUDE_HISTORY_PATH=C:/Users/<username>/.claude
+CODEX_HISTORY_PATH=C:/Users/<username>/.codex
 WIKI_TOKEN_WARN_THRESHOLD=20000
 ```
 
