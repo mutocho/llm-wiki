@@ -49,5 +49,6 @@ title: Wiki Index
 ## Synthesis
 
 - [[synthesis/verbal-source-verification-policy|구술·사내 출처는 공식 문서 대조 전까지 승격하지 않는다]] — 볼트 내 5건의 실제 오류 근거, 대조 우선순위는 수치·버전·한도
+- [[synthesis/vault-governance-decisions|볼트 거버넌스 결정]] — career 회사 단위 라우팅(kakaogames/common), AGENTS.md 단일 소스 + CLAUDE.md @import, 브랜치 금지
 
 ## Journal
