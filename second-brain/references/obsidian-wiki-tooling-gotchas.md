@@ -35,6 +35,11 @@ updated: 2026-08-04
 - 이 볼트의 관례는 항상 폴더 접두어 포함(`[[dba/dev-tooling-standards]]`)이다 — 도구 호환성이 좋고, lint 오탐도 사라진다. 2026-08-04 린트에서 접두어 누락 2건을 발견해 수정했다.
 - 반대 방향 오탐도 있다: 산문 속 예시용 링크(`[[wikilink]]`, `[[링크]]` — ROUTING.md의 규칙 설명)는 실제 페이지가 아니므로 lint 결과에서 수동 제외해야 한다.^[inferred]
 
+## obsidian-git askpass 실행 권한 함정
+
+- obsidian-git 플러그인은 로드될 때마다 `obsidian_askpass.sh`(git 인증을 Obsidian UI로 받는 GIT_ASKPASS 헬퍼)에 `chmod +x`를 적용한다. 실행 비트가 커밋돼 있지 않으면 Obsidian을 열 때마다 mode 변경(100644→100755) diff가 다시 생긴다.
+- 대응: 실행 비트를 한 번 커밋하면(내용 변경 없음, mode만) 장비 간 반복 dirty 상태가 사라진다. 2026-08-06 적용.
+
 ## Related
 
 - [[references/claude-code-permission-guardrails|Claude Code 권한 가드레일 동작]]
