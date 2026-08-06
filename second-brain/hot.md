@@ -9,6 +9,8 @@ updated: 2026-08-06
 
 ## Recent Activity
 
+- [2026-08-06] CAPTURE — [[career/kakaogames/dba-agent-work-plan]] 신규. 2026-08-07 수행할 DBA Agent 명칭·구조 개편, `single`/`pipe` 역할 구분, DBMS별 주간 버전·버그 점검 및 어카운트별 최근 일주일 분석 계획.
+
 - [2026-08-06] CAPTURE — [[synthesis/vault-governance-decisions]] 신규 (decision). career를 회사 단위 폴더(`career/kakaogames/`, 불분명 시 `career/common/`)로 재구성하고 기존 2페이지 이동. 규칙은 AGENTS.md 단일 소스 + CLAUDE.md `@AGENTS.md` import, 이 저장소는 브랜치 금지·main 직접 커밋. obsidian-git askpass chmod 함정은 [[references/obsidian-wiki-tooling-gotchas]]에 병합.
 - [2026-08-06] CAPTURE — [[career/kakaogames/dbgw-queries]] 신규. dbgw 메타DB 권한 목록 추출 쿼리를 원본 그대로 보관.
 - [2026-08-06] CAPTURE — [[synthesis/verbal-source-verification-policy]] 신규. 세미나·사내 출처의 반복 오류 5건을 근거로 한 적재 규칙. synthesis 카테고리 첫 페이지.
