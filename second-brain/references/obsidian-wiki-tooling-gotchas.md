@@ -16,7 +16,7 @@ category: references
 lifecycle: draft
 tier: supporting
 created: 2026-08-04
-updated: 2026-08-04
+updated: 2026-08-06
 ---
 
 # obsidian-wiki 도구 동작 함정
