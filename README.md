@@ -41,7 +41,7 @@ muto/
     ├── ROUTING.md             # dba/career 적재 판단 규칙
     ├── .manifest.json         # ingest 이력 (source 해시 → 생성 페이지)
     ├── sync.sh                # git 자동 동기화 스크립트
-    ├── env.example            # .env 템플릿 (복사 후 rename)
+    ├── env.example            # .env 템플릿 (복사 후 경로 수정)
     ├── dba/                   # DBA 지식 허브 (_hub.md가 입구)
     ├── career/                # 커리어 허브 (_hub.md, 2026.md 연간 뷰)
     ├── references/            # 외부 참조·환경 노트
@@ -141,6 +141,48 @@ Codex CLI를 쓰는 장비라면 추가 설정은 거의 없습니다:
 검증:
 - Claude Code: 이 디렉터리에서 열고 `/wiki-status` 실행 → 볼트가 인식되면 완료.
 - Codex: 이 디렉터리에서 `codex` 실행 후 `/wiki-status` → 동일하게 확인.
+
+### 3-4. Windows 환경 구축
+
+Windows에서는 PowerShell을 기본 터미널로 사용하고, `sync.sh`를 실행할 수 있도록 **Git for Windows (Git Bash 포함)**를 설치합니다. Python 3, Git for Windows, 선택적으로 Obsidian과 Claude Code/Codex CLI가 필요합니다.
+
+PowerShell에서 다음 순서로 구성합니다:
+
+```powershell
+# 1. 저장소 클론
+git clone https://github.com/mutocho/llm-wiki.git muto
+Set-Location muto
+
+# 2. Python 패키지 설치 및 스킬 설정
+py -m pip install obsidian-wiki
+obsidian-wiki setup
+
+# 3. 로컬 .env 생성 (이 파일은 Git에 추적되지 않음)
+Copy-Item second-brain\env.example second-brain\.env
+notepad second-brain\.env
+
+# 4. 설치 상태 확인
+obsidian-wiki info
+obsidian-wiki doctor
+Get-ChildItem "$HOME\.claude\skills" -Filter "wiki*"
+```
+
+`.env`의 Windows 경로는 이스케이프가 필요 없는 슬래시(`/`)로 적는 것이 간단합니다.
+
+```dotenv
+OBSIDIAN_VAULT_PATH=C:/Users/<username>/muto/second-brain
+OBSIDIAN_SOURCES_DIR=C:/Users/<username>/muto
+CLAUDE_HISTORY_PATH=C:/Users/<username>/.claude
+WIKI_TOKEN_WARN_THRESHOLD=20000
+```
+
+PowerShell에서 동기화 스크립트를 수동 실행할 때는 Git for Windows의 `bash.exe`가 `PATH`에 있는지 확인한 뒤 다음과 같이 실행합니다:
+
+```powershell
+bash second-brain/sync.sh
+```
+
+`bash`를 찾지 못하면 Git Bash에서 저장소를 열어 같은 명령을 실행하거나 Git for Windows의 `bin` 경로를 `PATH`에 추가합니다. 마지막으로 Obsidian에서 **Open folder as vault**를 선택하여 `second-brain` 폴더를 열고, Claude Code 또는 Codex에서 `/wiki-status`를 실행해 인식 여부를 확인합니다.
 
 ## 4. 일상 사용법
 
