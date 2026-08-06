@@ -6,16 +6,16 @@ summary: >-
   세미나·사내 문서 출처는 수치·버전·한도에서 반복적으로 틀린다. 볼트 내 5건의 실제 오류를 근거로
   한 적재 규칙 — 대조 전에는 lifecycle draft 고정, 항목 단위로 출처를 표시한다.
 sources:
-  - conversation:2026-08-04
+  - conversation:2026-08-06
 provenance:
   extracted: 0.6
   inferred: 0.4
 base_confidence: 0.8
 lifecycle: draft
-lifecycle_changed: 2026-08-04
+lifecycle_changed: 2026-08-06
 tier: supporting
-created: 2026-08-04
-updated: 2026-08-04
+created: 2026-08-06
+updated: 2026-08-06
 ---
 
 # 구술·사내 출처는 공식 문서 대조 전까지 승격하지 않는다

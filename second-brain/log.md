@@ -19,11 +19,11 @@ title: Wiki Log
 - [2026-08-04] QUERY query="위키에 운영 쿼리에 대한 내용 있어?" result_pages=7 mode=normal escalated=true
 - [2026-08-04] CAPTURE type=concept page="dba/operational-queries.md" title="운영 진단 쿼리 모음 (MySQL·PostgreSQL·SQL Server)" note="볼트 첫 SQL 코드블록 페이지. 표준 시스템 뷰 기반, 실행 검증 전(draft)"
 - [2026-08-04] UPDATE page="dba/operational-queries.md" note="권한 감사(12)·권한 부여(13)·DDL 안전 패턴(14)·DML 안전 패턴(15) 추가. search_path 설정 지식 흡수. 읽기전용/변경 경계 명시"
-- [2026-08-04] CAPTURE type=concept page="dba/mysql-partition-pruning-prepared-stmt-bug.md" title="MySQL 8.0.42 파티션 pruning 캐시 회귀 (Bug #119309)" note="공식 버그 리포트 + 자체 재현 테스트. dba/career 양쪽 적재"
-- [2026-08-04] UPDATE page="career/2026.md" note="8월 항목 추가 — Bug #119309 영향 조사·재현 테스트"
-- [2026-08-04] QUERY query="aws aurora dsql 설명들은거 알려줘" result_pages=1 mode=normal escalated=false
-- [2026-08-04] UPDATE page="dba/mysql-partition-pruning-prepared-stmt-bug.md" note="리포트 재확인 — 최소 재현 케이스·내부 함수명·SP 포함 추가. 사내 문서의 8.0.41 표기 정정(실제 8.0.42), Reorganize는 재발 방지가 아닌 리셋임을 명시"
-- [2026-08-04] CAPTURE type=synthesis page="synthesis/verbal-source-verification-policy.md" title="구술·사내 출처는 공식 문서 대조 전까지 승격하지 않는다"
+- [2026-08-05] CAPTURE type=concept page="dba/mysql-partition-pruning-prepared-stmt-bug.md" title="MySQL 8.0.42 파티션 pruning 캐시 회귀 (Bug #119309)" note="공식 버그 리포트 + 자체 재현 테스트. dba/career 양쪽 적재"
+- [2026-08-05] UPDATE page="career/2026.md" note="8월 항목 추가 — Bug #119309 영향 조사·재현 테스트 (이후 career/kakaogames/2026.md로 이동)"
+- [2026-08-06] QUERY query="aws aurora dsql 설명들은거 알려줘" result_pages=1 mode=normal escalated=false
+- [2026-08-06] UPDATE page="dba/mysql-partition-pruning-prepared-stmt-bug.md" note="리포트 재확인 — 최소 재현 케이스·내부 함수명·SP 포함 추가. 사내 문서의 8.0.41 표기 정정(실제 8.0.42), Reorganize는 재발 방지가 아닌 리셋임을 명시"
+- [2026-08-06] CAPTURE type=synthesis page="synthesis/verbal-source-verification-policy.md" title="구술·사내 출처는 공식 문서 대조 전까지 승격하지 않는다"
 - [2026-08-06] QUERY query="MySQL 버전 업그레이드 관련 버그 내용 찾아서 보여줘" result_pages=2 mode=normal escalated=false
 - [2026-08-04] CAPTURE type=concept page="dba/postgresql-operations.md" title="롤별 search_path 설정 (단일 스키마 DB)"
 - [2026-08-04] CAPTURE type=decision page="ROUTING.md" title="career 범위 확장 — 회사 수행 작업 전체 기록"
