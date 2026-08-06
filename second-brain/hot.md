@@ -10,6 +10,9 @@ updated: 2026-08-06
 ## Recent Activity
 
 - [2026-08-06] CAPTURE — [[synthesis/vault-governance-decisions]] 신규 (decision). career를 회사 단위 폴더(`career/kakaogames/`, 불분명 시 `career/common/`)로 재구성하고 기존 2페이지 이동. 규칙은 AGENTS.md 단일 소스 + CLAUDE.md `@AGENTS.md` import, 이 저장소는 브랜치 금지·main 직접 커밋. obsidian-git askpass chmod 함정은 [[references/obsidian-wiki-tooling-gotchas]]에 병합.
+- [2026-08-06] CAPTURE — [[synthesis/verbal-source-verification-policy]] 신규. 세미나·사내 출처의 반복 오류 5건을 근거로 한 적재 규칙. synthesis 카테고리 첫 페이지.
+- [2026-08-06] UPDATE — [[dba/mysql-partition-pruning-prepared-stmt-bug]] 보강. 사내 문서의 "8.0.41 버그" 표기를 8.0.42로 정정, Reorganize는 재발 방지가 아닌 리셋임을 명시.
+- [2026-08-05] CAPTURE — [[dba/mysql-partition-pruning-prepared-stmt-bug]] 신규 (dba/career 양쪽 적재). MySQL Bug #119309 공식 리포트 + 자체 재현 테스트 결과. 버그 리포트에 없는 "INSERT 이력 없으면 미노출" 조건 규명.
 - [2026-08-04] CAPTURE — Aurora DSQL 세미나 노트를 [[dba/aurora-dsql]] 신규 페이지로 적재 (낙관적 락, buffer pool 없음, 앱 리트라이 필수). dba/ 13페이지를 Notion 🗃️ DBA 하위로 내보냄.
 - [2026-08-04] LINT+CAPTURE — 깨진 wikilink 2건(경로 접두어 누락) 수정, career/2026 frontmatter 보강. wikilink 접두어 함정을 [[references/obsidian-wiki-tooling-gotchas]]에 병합.
 - [2026-08-04] CAPTURE — forum DB 롤별 search_path 설정을 [[dba/postgresql-operations]]·[[career/2026]]에 이중 적재. career 범위를 "회사 수행 작업 전체 기록"으로 확장 (ROUTING.md).
