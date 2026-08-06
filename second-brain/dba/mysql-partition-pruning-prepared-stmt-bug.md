@@ -111,7 +111,7 @@ SET TIMESTAMP = UNIX_TIMESTAMP('2026-09-01 00:01:50');
 ## 수정 상태
 
 - **Dmitry Lenev 패치 기여** — `DEFAULT CURRENT_TIMESTAMP`에 의존하는 파티션 표현식은 `prepare_inner()`에서의 프루닝을 **미루고 `Sql_cmd_insert_values::execute_inner()` 시점에 수행**하도록 바꾼다. 즉 실행마다 재계산되는 `read_partitions`를 쓰고, 굳어버리는 `lock_partitions`에 의존하지 않는다. prepared statement 파라미터를 다루는 기존 방식과 같은 접근이다.
-- **8.0.45, 8.4.x, 9.x 브랜치 적용 대상** — 2026-08-04 확인 시점 기준 **통합 전(패치 기여 단계)**.
+- **8.0.45, 8.4.x, 9.x 브랜치 적용 대상** — 2026-08-06 확인 시점 기준 **통합 전(패치 기여 단계)**.
 
 ## 대응
 
