@@ -38,12 +38,20 @@ worker = SerialWorker()
 
 @app.event("message")
 def on_message(event, say):
+    log.info(
+        "message event: channel=%s subtype=%s bot_id=%s thread_ts=%s",
+        event.get("channel"), event.get("subtype"),
+        event.get("bot_id"), event.get("thread_ts"),
+    )
     if not handlers.should_capture(event, CHANNEL):
         return
     text, ts = event["text"], event["ts"]
 
     def job():
-        result = handlers.to_mrkdwn(handlers.process("capture", text))
+        say(text="🐢 적재 시작...", thread_ts=ts)
+        result = handlers.process("capture", text)
+        status = "❌ 적재 실패" if result.startswith("오류:") else "✅ 적재 완료"
+        result = handlers.to_mrkdwn(f"{status}\n{result}")
         for chunk in handlers.split_message(result):
             say(text=chunk, thread_ts=ts)
 

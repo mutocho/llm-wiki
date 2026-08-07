@@ -18,6 +18,10 @@ PROMPTS = {
         "적재 규칙을 읽고, 이 내용을 second-brain 볼트에 적재하라. 보존 가치가 애매하면 "
         "second-brain/_raw/<ISO날짜>-<slug>.md 로 드롭하라. 민감정보(토큰, 비밀번호, "
         "내부 IP, 고객 데이터)는 기록하지 마라. 마지막 줄에 생성/수정한 파일 경로를 출력하라.\n\n"
+        "메시지가 일정(약속, 예약, 마감일, 회의 등 날짜·시간이 있는 것)이면 추가로 "
+        "google-calendar MCP 도구로 기본 캘린더에 이벤트를 등록하라 (시간대 Asia/Seoul, "
+        "상대 날짜는 오늘 날짜 기준으로 절대 날짜로 변환). 등록한 이벤트의 제목과 일시를 "
+        "답변에 포함하라. 일정이 아니면 캘린더 등록은 하지 마라.\n\n"
         "메시지:\n{text}"
     ),
     "query": (
@@ -48,7 +52,7 @@ def build_prompt(kind, text):
 
 def run_codex(prompt):
     r = subprocess.run(
-        [CODEX, "exec", "--cd", REPO, prompt],
+        [CODEX, "exec", "--sandbox", "workspace-write", "--cd", REPO, prompt],
         capture_output=True, text=True, timeout=CODEX_TIMEOUT,
     )
     if r.returncode != 0:
