@@ -438,7 +438,40 @@ Codex는 `SessionStart`, `PreToolUse`, `PostToolUse`, `Stop`, `SessionEnd` 등�
 
 Claude Code가 파일을 쓸 때마다 sync.sh를 호출하고, sync.sh가 볼트 내부 파일인지 스스로 필터링합니다.
 
-## 6. 페이지 작성 규약
+## 6. Slack Bot — 원격 wiki 사용
+
+다른 장비에서는 저장소 클론 없이 Slack으로 wiki를 사용한다. 봇은 이 Mac에서 상주한다.
+
+### Slack 앱 설정 (1회)
+
+1. https://api.slack.com/apps 에서 앱 생성
+2. Socket Mode 활성화 → App-Level Token 발급 (`connections:write`)
+3. OAuth & Permissions → Bot Token Scopes: `channels:history`, `chat:write`, `commands`
+4. Event Subscriptions → Bot Events: `message.channels`
+5. Slash Commands 등록: `/wiki-query`, `/wiki-ingest`, `/wiki-lint`
+6. 워크스페이스에 설치 후 봇을 적재 채널에 초대 (`/invite @봇이름`)
+
+### 실행
+
+```bash
+cd slack-bot
+cp .env.example .env   # 토큰·채널 ID 기입
+python3 -m pip install -r requirements.txt
+python3 app.py
+```
+
+### 사용법
+
+| 입력 | 동작 |
+|---|---|
+| 적재 채널에 일반 메시지 | codex가 second-brain에 적재 후 스레드로 결과 답장 |
+| `/wiki-query <질문>` | 볼트 검색·답변 (모든 채널) |
+| `/wiki-ingest` | `_raw/` 스테이징 페이지 승격 |
+| `/wiki-lint` | 볼트 건강 리포트 (읽기 전용) |
+
+장비 간 git sync 훅은 제거됨 — 적재/승격 후 `sync.sh`가 원격 백업 push만 수행한다.
+
+## 7. 페이지 작성 규약
 
 - frontmatter 필수: `title`, `topics`, `tags`(2~4개), `summary`(≤200자)
 - 대화 요약이 아닌 **선언적 지식**으로 작성 ("X는 ~하다")
@@ -446,7 +479,7 @@ Claude Code가 파일을 쓸 때마다 sync.sh를 호출하고, sync.sh가 볼�
 - 새 페이지는 기존 페이지 최소 2개와 `[[링크]]`
 - **민감정보(비밀번호·토큰·내부 IP·고객 데이터) 기록 절대 금지** — 위치 참조만 남김
 
-## 7. 트러블슈팅
+## 8. 트러블슈팅
 
 | 증상 | 원인/해결 |
 |---|---|
