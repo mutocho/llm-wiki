@@ -28,7 +28,7 @@ def test_run_codex_returns_stdout():
         out = runner.run_codex("do something")
     assert out == "answer text"
     cmd = m.call_args.args[0]
-    assert cmd[:2] == ["codex", "exec"]
+    assert cmd[0].endswith("codex") and cmd[1] == "exec"
     assert "--cd" in cmd and runner.REPO in cmd
 
 

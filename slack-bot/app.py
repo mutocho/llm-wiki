@@ -3,6 +3,7 @@
 실행: cd slack-bot && python3 app.py  (.env 필요 — .env.example 참조)
 """
 import logging
+import logging.handlers
 import os
 
 from dotenv import load_dotenv
@@ -12,7 +13,18 @@ from slack_bolt.adapter.socket_mode import SocketModeHandler
 import handlers
 from worker import SerialWorker
 
-logging.basicConfig(level=logging.INFO)
+LOG_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logs")
+os.makedirs(LOG_DIR, exist_ok=True)
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(name)s %(message)s",
+    handlers=[
+        logging.StreamHandler(),
+        logging.handlers.RotatingFileHandler(
+            os.path.join(LOG_DIR, "bot.log"), maxBytes=5_000_000, backupCount=3
+        ),
+    ],
+)
 log = logging.getLogger(__name__)
 
 load_dotenv()
@@ -31,7 +43,7 @@ def on_message(event, say):
     text, ts = event["text"], event["ts"]
 
     def job():
-        result = handlers.process("capture", text)
+        result = handlers.to_mrkdwn(handlers.process("capture", text))
         for chunk in handlers.split_message(result):
             say(text=chunk, thread_ts=ts)
 
@@ -47,7 +59,7 @@ def make_command(kind, needs_text):
         ack("처리 중... 완료되면 결과를 보낼게요.")
 
         def job():
-            result = handlers.process(kind, text)
+            result = handlers.to_mrkdwn(handlers.process(kind, text))
             for chunk in handlers.split_message(result):
                 respond(text=chunk, response_type="in_channel")
 

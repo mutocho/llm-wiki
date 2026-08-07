@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- 배경 -->
+  <rect width="512" height="512" rx="110" fill="#BDE8F5"/>
+
+  <!-- 꼬리 -->
+  <path d="M395 330 q60 -10 55 -60 q30 55 -25 85 q-25 12 -30 -25z" fill="#7EC8E8"/>
+
+  <!-- 등껍질 -->
+  <ellipse cx="256" cy="330" rx="150" ry="118" fill="#8B5E3C"/>
+  <ellipse cx="256" cy="330" rx="122" ry="94" fill="#A9744F"/>
+  <path d="M256 240 v180 M170 270 l172 120 M342 270 L170 390" stroke="#8B5E3C" stroke-width="10" fill="none"/>
+
+  <!-- 배 테두리 -->
+  <ellipse cx="256" cy="405" rx="150" ry="42" fill="#F5EFC9"/>
+
+  <!-- 팔 -->
+  <ellipse cx="120" cy="360" rx="38" ry="26" fill="#7EC8E8" transform="rotate(-30 120 360)"/>
+  <ellipse cx="392" cy="360" rx="38" ry="26" fill="#7EC8E8" transform="rotate(30 392 360)"/>
+
+  <!-- 머리 -->
+  <circle cx="256" cy="170" r="112" fill="#7EC8E8"/>
+
+  <!-- 눈 -->
+  <circle cx="212" cy="155" r="26" fill="#3B2B20"/>
+  <circle cx="300" cy="155" r="26" fill="#3B2B20"/>
+  <circle cx="221" cy="146" r="9" fill="#FFFFFF"/>
+  <circle cx="309" cy="146" r="9" fill="#FFFFFF"/>
+
+  <!-- 볼터치 -->
+  <circle cx="176" cy="196" r="14" fill="#F8B5B5" opacity="0.8"/>
+  <circle cx="336" cy="196" r="14" fill="#F8B5B5" opacity="0.8"/>
+
+  <!-- 입 -->
+  <path d="M226 208 q30 26 60 0" stroke="#3B2B20" stroke-width="8" fill="none" stroke-linecap="round"/>
+
+  <!-- 위키 노트 배지 -->
+  <g transform="translate(340,60)">
+    <rect x="0" y="0" width="84" height="100" rx="12" fill="#FFFFFF" stroke="#5A9EBF" stroke-width="6"/>
+    <path d="M16 26 h52 M16 48 h52 M16 70 h34" stroke="#5A9EBF" stroke-width="7" stroke-linecap="round"/>
+  </g>
+</svg>

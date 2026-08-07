@@ -67,3 +67,20 @@ def test_process_error_returns_message_not_raise():
         out = handlers.process("query", "q?")
     assert out.startswith("오류:")
     assert "fake boom" in out
+
+
+def test_to_mrkdwn_headers_and_bold():
+    assert handlers.to_mrkdwn("## Title\n**bold** text") == "*Title*\n*bold* text"
+
+
+def test_to_mrkdwn_links_and_bullets():
+    out = handlers.to_mrkdwn("- item one\n[docs](https://example.com/x)")
+    assert out == "• item one\n<https://example.com/x|docs>"
+
+
+def test_to_mrkdwn_table_becomes_code_block():
+    md = "| 설정 | 값 |\n|---|---|\n| DAC | 1 |\n| MAXDOP | 환경별 |"
+    out = handlers.to_mrkdwn(md)
+    assert out.startswith("```") and out.endswith("```")
+    assert "---" not in out
+    assert "DAC     1" in out

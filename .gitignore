@@ -7,3 +7,5 @@ second-brain/.env
 slack-bot/.env
 __pycache__/
 .pytest_cache/
+docs/
+slack-bot/logs/

@@ -5,6 +5,8 @@ import subprocess
 log = logging.getLogger(__name__)
 
 REPO = "/Users/kakaogames/workspace/muto"
+# cmux shim이 PATH의 `codex`를 가로채므로 실제 CLI 절대 경로 사용
+CODEX = "/opt/homebrew/Cellar/node/24.1.0/bin/codex"
 CODEX_TIMEOUT = 600  # seconds
 NEEDS_SYNC = {"capture", "ingest"}
 
@@ -19,9 +21,11 @@ PROMPTS = {
         "메시지:\n{text}"
     ),
     "query": (
-        f"{SKILLS}/wiki-query/SKILL.md 지침 파일을 읽고 그대로 수행하라. "
-        "질문에 대해 second-brain 볼트를 검색해 출처 페이지를 인용하며 답하라. "
-        "볼트를 수정하지 마라.\n\n질문: {text}"
+        "wiki-query: second-brain/ 볼트(Obsidian 위키)에서 질문의 답을 찾아라. "
+        "절차: second-brain/index.md를 읽고 후보 페이지를 고른 뒤, grep으로 좁혀 "
+        "관련 페이지 최대 10개만 읽고 답하라. graph-query, QMD, 전체 스캔은 하지 마라. "
+        "출처 페이지 경로를 인용하고, 볼트에 없으면 없다고 답하라. 볼트를 수정하지 마라. "
+        "간결하게 답하라.\n\n질문: {text}"
     ),
     "ingest": (
         f"{SKILLS}/wiki-ingest/SKILL.md 지침 파일을 읽고 그대로 수행하라. "
@@ -44,7 +48,7 @@ def build_prompt(kind, text):
 
 def run_codex(prompt):
     r = subprocess.run(
-        ["codex", "exec", "--cd", REPO, prompt],
+        [CODEX, "exec", "--cd", REPO, prompt],
         capture_output=True, text=True, timeout=CODEX_TIMEOUT,
     )
     if r.returncode != 0:
