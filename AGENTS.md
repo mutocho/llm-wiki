@@ -12,6 +12,7 @@
 
 - DB 기술 지식/런북/쿼리 → `second-brain/dba/` (frontmatter `topics: [dba]`)
 - 수행한 업무·성과·임팩트 기록 → `second-brain/career/<회사>/` (frontmatter `topics: [career]`) — 현재 회사는 카카오게임즈 → `career/kakaogames/`, 회사가 불분명하면 `career/common/`
+- 개인 일정·할 일·계획 (약속, 마감일, 반복 일정, 개인 프로젝트) → `second-brain/personal/` (frontmatter `topics: [personal]`)
 - 둘 다 해당하면 페이지를 각각 만들고 `[[wikilink]]`로 상호 연결
 - 급하게 저장할 초안은 `second-brain/_raw/<ISO날짜>-<slug>.md`에 드롭 (나중에 정식 페이지로 승격됨)
 - 민감정보(계정, 비밀번호, 토큰, 내부 IP, 고객 데이터)는 절대 기록하지 않는다
