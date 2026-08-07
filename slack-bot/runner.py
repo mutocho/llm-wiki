@@ -1,0 +1,61 @@
+"""codex exec 실행기 + 프롬프트 템플릿. Slack 의존성 없음."""
+import logging
+import subprocess
+
+log = logging.getLogger(__name__)
+
+REPO = "/Users/kakaogames/workspace/muto"
+CODEX_TIMEOUT = 600  # seconds
+NEEDS_SYNC = {"capture", "ingest"}
+
+SKILLS = "/Users/kakaogames/.claude/skills"
+
+PROMPTS = {
+    "capture": (
+        "다음은 Slack 채널에 올라온 메시지다. second-brain/ROUTING.md와 AGENTS.md의 "
+        "적재 규칙을 읽고, 이 내용을 second-brain 볼트에 적재하라. 보존 가치가 애매하면 "
+        "second-brain/_raw/<ISO날짜>-<slug>.md 로 드롭하라. 민감정보(토큰, 비밀번호, "
+        "내부 IP, 고객 데이터)는 기록하지 마라. 마지막 줄에 생성/수정한 파일 경로를 출력하라.\n\n"
+        "메시지:\n{text}"
+    ),
+    "query": (
+        f"{SKILLS}/wiki-query/SKILL.md 지침 파일을 읽고 그대로 수행하라. "
+        "질문에 대해 second-brain 볼트를 검색해 출처 페이지를 인용하며 답하라. "
+        "볼트를 수정하지 마라.\n\n질문: {text}"
+    ),
+    "ingest": (
+        f"{SKILLS}/wiki-ingest/SKILL.md 지침 파일을 읽고 그대로 수행하라. "
+        "second-brain/_raw/ 의 스테이징 페이지들을 정식 위키 페이지로 승격하라. "
+        "처리한 파일 목록을 출력하라.{text}"
+    ),
+    "lint": (
+        f"{SKILLS}/wiki-lint/SKILL.md 지침 파일을 읽고 그대로 수행하라. "
+        "second-brain 볼트의 건강 상태(깨진 링크, 고아 페이지, 오래된 페이지)를 "
+        "리포트만 하라. 파일을 수정하지 마라.{text}"
+    ),
+}
+
+
+def build_prompt(kind, text):
+    if kind not in PROMPTS:
+        raise ValueError(f"unknown kind: {kind}")
+    return PROMPTS[kind].format(text=text)
+
+
+def run_codex(prompt):
+    r = subprocess.run(
+        ["codex", "exec", "--cd", REPO, prompt],
+        capture_output=True, text=True, timeout=CODEX_TIMEOUT,
+    )
+    if r.returncode != 0:
+        raise RuntimeError(f"codex exec failed (rc={r.returncode}): {r.stderr[-500:]}")
+    return r.stdout
+
+
+def run_sync():
+    r = subprocess.run(
+        ["bash", f"{REPO}/second-brain/sync.sh"],
+        capture_output=True, text=True, timeout=120,
+    )
+    if r.returncode != 0:
+        log.warning("sync.sh failed: %s", r.stderr[-300:])
