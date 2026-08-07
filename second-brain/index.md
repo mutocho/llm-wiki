@@ -4,7 +4,7 @@ title: Wiki Index
 
 # Wiki Index
 
-*This index is automatically maintained. Last updated: 2026-08-06*
+*This index is automatically maintained. Last updated: 2026-08-07*
 
 ## 주제 허브
 
@@ -37,6 +37,10 @@ title: Wiki Index
 - [[career/kakaogames/notion-kb-consolidation-worklog|DBA 지식베이스 통합 정리 프로젝트 (2026-07)]] — 31개 문서, 6차 검증, 포트폴리오 재료
 - [[career/kakaogames/2026|2026년 작업 내역]]
 - [[career/kakaogames/dbgw-queries|dbgw 메타DB 운영 쿼리]] — 인스턴스별 권한 목록 추출 쿼리
+
+## Personal
+
+- [[personal/todo|할 일 목록]] — 날짜가 있는 단발성 일정과 할 일을 체크박스로 관리
 
 ## References
 

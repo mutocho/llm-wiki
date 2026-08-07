@@ -1,6 +1,6 @@
 ---
 title: Hot Cache
-updated: 2026-08-06
+updated: 2026-08-07
 ---
 
 # Hot Cache
@@ -9,22 +9,10 @@ updated: 2026-08-06
 
 ## Recent Activity
 
+- [2026-08-07] CAPTURE — [[personal/todo]]에 2026-08-10 10:00 `DBGW 성능 개선(일괄 실행 for문)`과 `DBGWS 승인 절차` 일정을 추가.
 - [2026-08-06] CAPTURE — [[career/kakaogames/dba-agent-work-plan]] 신규. 2026-08-07 수행할 DBA Agent 명칭·구조 개편, `single`/`pipe` 역할 구분, DBMS별 주간 버전·버그 점검 및 어카운트별 최근 일주일 분석 계획.
 
 - [2026-08-06] CAPTURE — [[synthesis/vault-governance-decisions]] 신규 (decision). career를 회사 단위 폴더(`career/kakaogames/`, 불분명 시 `career/common/`)로 재구성하고 기존 2페이지 이동. 규칙은 AGENTS.md 단일 소스 + CLAUDE.md `@AGENTS.md` import, 이 저장소는 브랜치 금지·main 직접 커밋. obsidian-git askpass chmod 함정은 [[references/obsidian-wiki-tooling-gotchas]]에 병합.
-- [2026-08-06] CAPTURE — [[career/kakaogames/dbgw-queries]] 신규. dbgw 메타DB 권한 목록 추출 쿼리를 원본 그대로 보관.
-- [2026-08-06] CAPTURE — [[synthesis/verbal-source-verification-policy]] 신규. 세미나·사내 출처의 반복 오류 5건을 근거로 한 적재 규칙. synthesis 카테고리 첫 페이지.
-- [2026-08-06] UPDATE — [[dba/mysql-partition-pruning-prepared-stmt-bug]] 보강. 사내 문서의 "8.0.41 버그" 표기를 8.0.42로 정정, Reorganize는 재발 방지가 아닌 리셋임을 명시.
-- [2026-08-05] CAPTURE — [[dba/mysql-partition-pruning-prepared-stmt-bug]] 신규 (dba/career 양쪽 적재). MySQL Bug #119309 공식 리포트 + 자체 재현 테스트 결과. 버그 리포트에 없는 "INSERT 이력 없으면 미노출" 조건 규명.
-- [2026-08-04] CAPTURE — Aurora DSQL 세미나 노트를 [[dba/aurora-dsql]] 신규 페이지로 적재 (낙관적 락, buffer pool 없음, 앱 리트라이 필수). dba/ 13페이지를 Notion 🗃️ DBA 하위로 내보냄.
-- [2026-08-04] LINT+CAPTURE — 깨진 wikilink 2건(경로 접두어 누락) 수정, career/2026 frontmatter 보강. wikilink 접두어 함정을 [[references/obsidian-wiki-tooling-gotchas]]에 병합.
-- [2026-08-04] CAPTURE — forum DB 롤별 search_path 설정을 [[dba/postgresql-operations]]·[[career/2026]]에 이중 적재. career 범위를 "회사 수행 작업 전체 기록"으로 확장 (ROUTING.md).
-- [2026-08-04] CAPTURE/UPDATE — [[dba/operational-queries]] 신규. 볼트의 첫 SQL 코드블록 페이지(3사 대조 15개 카테고리: 진단 1~11, 권한 감사 12, 권한 부여 13, DDL 14, DML 15). 표준 시스템 뷰 기반이라 **실행 검증 전(draft)** — 현장 쿼리로 교체 필요. `search_path` 설정 지식도 여기 흡수.
-- [2026-08-04] UPDATE — [[dba/aurora-dsql]]을 AWS 공식 문서로 대조 보강(draft→verified). 세미나 노트의 "스토리지 무제한"을 정정하고 공식 한도표·미지원 기능·DPU 과금 추가.
-- [2026-08-04] CAPTURE — obsidian-wiki graph-query의 폴디드 summary 파싱 함정을 [[references/obsidian-wiki-tooling-gotchas]]로 승격. psql `\dT` 메타커맨드는 [[dba/postgresql-operations]]에 섹션 추가.
-- [2026-08-04] INGEST — `_raw/` 15건을 정식 페이지로 승격 (dba 13, career 1, references 1). Notion 'Muto - DBA 통합 포털' 전체 뎁스(~140페이지) 수집분 포함.
-- [2026-08-04] Notion 포털 심층 감사 — 교정 백로그 20건(P1: TRUNCATE 생성기, QA 호스트명 노출, 개인 이메일 잔존 등) 도출.
-- [2026-08-04] INIT — DBA/커리어 이중 허브 볼트 생성, git auto-sync 훅 구성.
 
 ## Active Threads
 
